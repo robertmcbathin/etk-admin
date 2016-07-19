@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Employee;
 use Illuminate\Http\Request;
 use Validator;
+use DB;
+use Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -32,7 +34,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = 'dashboard';
 
     /**
      * Create a new authentication controller instance.
@@ -54,7 +56,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'username' => 'required|max:50',
-            'psw' => 'required|min:4|confirmed',
+            'password' => 'required|min:4|confirmed',
         ]);
     }
 
@@ -73,16 +75,29 @@ class AuthController extends Controller
         ]);
     }
 
-    public function postSignIn(Request $request)
+    public function postLogIn(Request $request)
     {
-        if (Auth::attempt(['USERNAME' => $request['username'], 'PSW' => $request['psw']])) {
-            return redirect()->route($redirectTo);
+        $this->validate($request,[
+            'username' => 'required',
+            'password' => 'required|min:4'
+            ]);
+        $username = $request['username'];
+        $password = $request['password'];
+        
+        $credentials = DB::table('EMPLOYEES')->where('USERNAME', $username)
+                                             ->first();
+        $hashed_password = $credentials->PASSWORD;
+        if (Hash::check($password, $hashed_password)){
+            $user = new Employee();
+            $user->USERNAME = $username;
+            Auth::login($user);
+            return redirect()->route($this->redirectTo);
         }
         return redirect()->back();
     }
-    public function getSignIn()
+    public function getLogIn()
     {
-        return view('auth.signin');
+        return view('auth.login');
     }
     public function getRegister()
     {

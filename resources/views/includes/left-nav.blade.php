@@ -9,7 +9,7 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="{{ URL::to('/src/images/mercile55.jpg') }}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Привет,</span>

@@ -25,8 +25,8 @@ Route::group(['middleware' => ['web']], function(){
 		]);
 
     // Маршруты аутентификации...
-    Route::get('auth/signin', 'Auth\AuthController@getSignIn');
-    Route::post('auth/signin', 'Auth\AuthController@postSignIn');
+    Route::get('auth/login', 'Auth\AuthController@getLogIn');
+    Route::post('auth/login', 'Auth\AuthController@postLogIn');
     Route::get('auth/signout', 'Auth\AuthController@getSignOut');
 
     Route::get('/settings/users', [

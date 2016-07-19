@@ -12,6 +12,8 @@ class EmployeeController extends Controller
 {
 	public function getDashboard()
 	{
-		return view('dashboard');
+		$user = Auth::user();
+		return view('dashboard',
+			['user' => $user]);
 	}
 }

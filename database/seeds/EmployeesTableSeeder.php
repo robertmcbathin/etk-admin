@@ -12,12 +12,14 @@ class EmployeesTableSeeder extends Seeder
      */
     public function run()
     {
+        $password = 'data-2014';
         DB::table('EMPLOYEES')->insert([
-        	'ID' => 222,
-        	'USERNAME' => 'test1',
+        	'ID' => 228,
+        	'USERNAME' => 'test5',
         	'FIRST_NAME' => 'Тест',
         	'SECOND_NAME' => 'Тест',
-        	'PSW' => bcrypt('data-2014')
+        	'PASSWORD' => bcrypt($password),
+            'ROLE' => 'card_reg'
         ]);
     }
 }
