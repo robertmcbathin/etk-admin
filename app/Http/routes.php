@@ -10,7 +10,28 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::group(['middleware' => ['web']], function(){
+	Route::get('/', [
+		'uses' => 'EmployeeController@getDashboard', 
+		'as' => '/'
+	]);
+	Route::get('/dashboard', [
+		'uses' => 'EmployeeController@getDashboard', 
+		'as' => 'dashboard'
+	]);
+	Route::get('/club/cards', ['uses' => 
+		'CardController@showCardDashboard',
+		'as' => 'club.cards'
+		]);
 
-Route::get('/', function () {
-    return view('welcome');
+    // Маршруты аутентификации...
+    Route::get('auth/signin', 'Auth\AuthController@getSignIn');
+    Route::post('auth/signin', 'Auth\AuthController@postSignIn');
+    Route::get('auth/signout', 'Auth\AuthController@getSignOut');
+
+    Route::get('/settings/users', [
+    	'uses' => 'Auth\AuthController@getRegister',
+		'as' => 'settings.users'
+		]);
+
 });

@@ -37,7 +37,7 @@
         <!-- page content -->
         <div class="right_col" role="main">
 
-          
+          @yield('content')
 
         <!-- footer content -->
         @include('includes.footer')

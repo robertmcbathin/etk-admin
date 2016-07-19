@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Employee;
+use Illuminate\Http\Request;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Support\Facades\Auth;
+
+use App\Http\Requests;
 
 class AuthController extends Controller
 {
@@ -28,7 +32,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new authentication controller instance.
@@ -49,9 +53,8 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'username' => 'required|max:50',
+            'psw' => 'required|min:4|confirmed',
         ]);
     }
 
@@ -68,5 +71,21 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function postSignIn(Request $request)
+    {
+        if (Auth::attempt(['USERNAME' => $request['username'], 'PSW' => $request['psw']])) {
+            return redirect()->route($redirectTo);
+        }
+        return redirect()->back();
+    }
+    public function getSignIn()
+    {
+        return view('auth.signin');
+    }
+    public function getRegister()
+    {
+        return view('auth.register');
     }
 }
