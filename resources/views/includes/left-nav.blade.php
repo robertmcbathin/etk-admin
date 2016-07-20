@@ -13,7 +13,7 @@
               </div>
               <div class="profile_info">
                 <span>Привет,</span>
-                <h2>John Doe</h2>
+                <h2>{{ Auth::user()->first_name }} {{ Auth::user()->second_name }}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->

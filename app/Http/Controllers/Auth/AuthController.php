@@ -83,21 +83,26 @@ class AuthController extends Controller
             ]);
         $username = $request['username'];
         $password = $request['password'];
-        
-        $credentials = DB::table('EMPLOYEES')->where('USERNAME', $username)
-                                             ->first();
-        $hashed_password = $credentials->PASSWORD;
-        if (Hash::check($password, $hashed_password)){
-            $user = new Employee();
-            $user->USERNAME = $username;
-            Auth::login($user);
+        if (Auth::attempt(['username' => $username, 'password' => $password])){
             return redirect()->route($this->redirectTo);
         }
         return redirect()->back();
+      /*  if (Hash::check($password, $hashed_password)){
+            $user = new Employee();
+            $user->username = $username;
+            Auth::login($user);
+            return redirect()->route($this->redirectTo);
+        }
+        return redirect()->back();*/
     }
     public function getLogIn()
     {
         return view('auth.login');
+    }
+    public function getLogOut()
+    {
+        Auth::logout();
+        return redirect()->route('home');
     }
     public function getRegister()
     {

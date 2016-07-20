@@ -11,10 +11,26 @@
 |
 */
 Route::group(['middleware' => ['web']], function(){
-	Route::get('/', [
+	Route::get('/', function(){
+		return view('auth.login');
+	})->name('home');
+
+    // Маршруты аутентификации...
+    Route::get('/auth/login', 'Auth\AuthController@getLogIn');
+    Route::post('/auth/login', 'Auth\AuthController@postLogIn');
+    Route::get('/auth/logout', 'Auth\AuthController@getLogOut');
+
+    Route::get('/settings/users', [
+    	'uses' => 'Auth\AuthController@getRegister',
+		'as' => 'settings.users'
+		]);
+
+});
+	Route::get('/dashboard', [
 		'uses' => 'EmployeeController@getDashboard', 
-		'as' => '/'
+		'as' => 'dashboard'
 	]);
+Route::group(['middleware' => ['auth']], function(){
 	Route::get('/dashboard', [
 		'uses' => 'EmployeeController@getDashboard', 
 		'as' => 'dashboard'
@@ -23,15 +39,4 @@ Route::group(['middleware' => ['web']], function(){
 		'CardController@showCardDashboard',
 		'as' => 'club.cards'
 		]);
-
-    // Маршруты аутентификации...
-    Route::get('auth/login', 'Auth\AuthController@getLogIn');
-    Route::post('auth/login', 'Auth\AuthController@postLogIn');
-    Route::get('auth/signout', 'Auth\AuthController@getSignOut');
-
-    Route::get('/settings/users', [
-    	'uses' => 'Auth\AuthController@getRegister',
-		'as' => 'settings.users'
-		]);
-
 });

@@ -8,5 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model implements Authenticatable
 {
 	use \Illuminate\Auth\Authenticatable;
-    protected $table = 'EMPLOYEES';
 }
