@@ -22,6 +22,8 @@
 
     <!-- Custom Theme Style -->
     <link href="{{ URL::to('src/build/css/custom.min.css') }}" rel="stylesheet">
+    <!-- Mercile55 overwrite Theme Style -->
+    <link href="{{ URL::to('src/build/css/m55.css') }}" rel="stylesheet">
   </head>
 
   <body class="nav-md">

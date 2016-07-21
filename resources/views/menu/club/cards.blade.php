@@ -36,6 +36,11 @@
                           <th>#</th>
                           <th>серия</th>
                           <th>номер</th>
+                          <th>Имя</th>
+                          <th>Фамилия</th>
+                          <th>Email</th>
+                          <th>Телефон</th>
+                          <th>Время и дата</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -44,6 +49,11 @@
                           <th scope="row">{{ $awaiting_card->id }}</th>
                           <td>{{ $awaiting_card->serie }}</td>
                           <td>{{ $awaiting_card->num }}</td>
+                          <td>{{ $awaiting_card->first_name }}</td>
+                          <td>{{ $awaiting_card->second_name }}</td>
+                          <td>{{ $awaiting_card->email }}</td>
+                          <td>{{ $awaiting_card->phone }}</td>
+                          <td>{{ $awaiting_card->created_at }}</td>
                         </tr>
 					   @endforeach
                       </tbody>
@@ -65,7 +75,11 @@
                           <th>#</th>
                           <th>серия</th>
                           <th>номер</th>
-                          <th>дата активации</th>
+                          <th>Имя</th>
+                          <th>Фамилия</th>
+                          <th>Email</th>
+                          <th>Телефон</th>
+                          <th>Время и дата</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -74,7 +88,11 @@
                           <th scope="row">{{ $active_card->id }}</th>
                           <td>{{ $active_card->serie }}</td>
                           <td>{{ $active_card->num }}</td>
-                          <td>{{ $active_card->activation_date }}</td>
+                          <td>{{ $active_card->first_name }}</td>
+                          <td>{{ $active_card->second_name }}</td>
+                          <td>{{ $active_card->email }}</td>
+                          <td>{{ $active_card->phone }}</td>
+                          <td>{{ $active_card->updated_at }}</td>
                         </tr>
 					   @endforeach
                       </tbody>

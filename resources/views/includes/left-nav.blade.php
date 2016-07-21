@@ -1,3 +1,6 @@
+<?php 
+$username = Auth::user()->username;
+?>
 <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
@@ -9,7 +12,7 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="{{ URL::to('/src/images/mercile55.jpg') }}" alt="..." class="img-circle profile_img">
+                <img src="{{ URL::to('/src/images/employees/' . $username . '.jpg') }}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Привет,</span>

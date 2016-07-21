@@ -1,0 +1,7 @@
+@font-face{
+	font-family: 'Exo 2';
+	src: url(/src/fonts/Exo2-Bold.otf);
+}
+a.site_title>span{
+	font-family: 'Exo 2';
+}
