@@ -35,8 +35,26 @@ Route::group(['middleware' => ['auth']], function(){
 		'uses' => 'EmployeeController@getDashboard', 
 		'as' => 'dashboard'
 	]);
+
+	/* CARD ROUTES */
 	Route::get('/club/cards', ['uses' => 
 		'CardController@showCardDashboard',
 		'as' => 'club.cards'
+		]);
+	Route::get('/club/cards/add', ['uses' => 
+		'CardController@getCardAdd',
+		'as' => 'club.cards.add.get'
+		]);
+	Route::post('/club/cards/add', ['uses' => 
+		'CardController@postCardAdd',
+		'as' => 'club.cards.add.post'
+		]);
+	Route::get('/club/cards/queue', ['uses' => 
+		'CardController@showCardActivationQueue',
+		'as' => 'club.cards.queue'
+		]);
+	Route::get('/club/cards/activated', ['uses' => 
+		'CardController@showActivatedCards',
+		'as' => 'club.cards.activated'
 		]);
 });

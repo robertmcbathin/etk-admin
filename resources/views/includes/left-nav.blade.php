@@ -30,7 +30,16 @@ $username = Auth::user()->username;
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-users"></i> Клуб <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{ route('club.cards') }}">Карты</a></li>
+                      <li><a>Карты <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="{{ route('club.cards.queue') }}">Ожидание активации</a>
+                        </li>
+                        <li><a href="{{ route('club.cards.activated') }}">Активированные</a>
+                        </li>
+                        <li class="sub_menu"><a href="{{ route('club.cards.add.get') }}">Добавить</a>
+                        </li>
+                      </ul>
+                      </li>
                       <li><a href="index2.html">Держатели</a></li>
                       <li><a href="index3.html">Еще какой-то пункт</a></li>
                     </ul>

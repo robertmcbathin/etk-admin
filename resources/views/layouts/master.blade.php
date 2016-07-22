@@ -249,7 +249,7 @@
       });
     </script>
     <!-- /Doughnut Chart -->
-    
+
     <!-- bootstrap-daterangepicker -->
     <script>
       $(document).ready(function() {
