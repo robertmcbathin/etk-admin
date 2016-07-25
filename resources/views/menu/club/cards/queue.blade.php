@@ -30,7 +30,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-					<table class="table">
+					<table class="table table table-striped jambo_table">
                       <thead>
                         <tr>
                           <th>#</th>

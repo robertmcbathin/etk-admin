@@ -57,4 +57,52 @@ Route::group(['middleware' => ['auth']], function(){
 		'CardController@showActivatedCards',
 		'as' => 'club.cards.activated'
 		]);
+	/*SHOP ROUTES*/
+	/*CATEGORIES*/
+	Route::get('/shop/categories', ['uses' => 
+		'ProductController@showCategories',
+		'as' => 'shop.categories'
+		]);	
+	Route::get('/shop/categories/add', ['uses' => 
+		'ProductController@getAddCategory',
+		'as' => 'shop.categories.add.get'
+		]);	
+	Route::post('/shop/categories/add', ['uses' => 
+		'ProductController@postAddCategory',
+		'as' => 'shop.categories.add.post'
+		]);	
+	Route::get('/shop/categories/{id}/delete', ['uses' => 
+		'ProductController@postDeleteCategory',
+		'as' => 'shop.categories.delete.post'
+		]);	
+	/*SUBCATEGORIES*/
+	Route::get('/shop/categories/subcategory/add', ['uses' => 
+		'ProductController@getAddSubCategory',
+		'as' => 'shop.categories.subcategory.add.get'
+		]);	
+	Route::post('/shop/categories/subcategory/add', ['uses' => 
+		'ProductController@postAddSubCategory',
+		'as' => 'shop.categories.subcategory.add.post'
+		]);	
+	Route::get('/shop/categories/subcategory/{id}/delete', ['uses' => 
+		'ProductController@postDeleteSubCategory',
+		'as' => 'shop.categories.subcategory.delete.post'
+		]);
+	/*PRODUCTS*/
+	Route::get('/shop/products', ['uses' => 
+		'ProductController@showProducts',
+		'as' => 'shop.products'
+		]);	
+	Route::get('/shop/products/add', ['uses' => 
+		'ProductController@getAddProduct',
+		'as' => 'shop.products.add.get'
+		]);	
+	Route::post('/shop/products/add', ['uses' => 
+		'ProductController@postAddProduct',
+		'as' => 'shop.products.add.post'
+		]);	
+	Route::get('/shop/products/{id}/delete', ['uses' => 
+		'ProductController@postDeleteProduct',
+		'as' => 'shop.products.delete.post'
+		]);	
 });

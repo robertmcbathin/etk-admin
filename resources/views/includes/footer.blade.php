@@ -1,6 +1,6 @@
 <footer>
   <div class="pull-right">
-    ETK-Admin | Made by Alexander Ivanov 
+    ETK-Admin 2016
   </div>
   <div class="clearfix"></div>
 </footer>

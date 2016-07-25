@@ -99,6 +99,21 @@ class CardController extends Controller
       /*INIT VARIABLES*/
       $card_serie  = $request['card_serie'];
       $card_number = $request['card_number'];
+
+      /*CHECK CARD CREDENTIALS*/
+      $card = DB::table('cards')->where('serie',$card_serie)
+                                  ->where('num',$card_number)
+                                  ->first();
+        if($card !== NULL)
+        {
+            return view('menu.club.cards.add',[
+              'alert_title' => 'Такая карта уже зарегистрирована!',
+              'alert_text'  => 'Запись не добавлена',
+              'alert_type'    => 'alert-error'
+            ]);
+        }
+        /*----------------------*/
+
       if (DB::table('cards')->insert([
         'serie'            => $card_serie,
         'num'              => $card_number,
@@ -110,10 +125,6 @@ class CardController extends Controller
         'alert_text'  => 'Добавлена новая карта',
         'alert_type'    => 'alert-success'
         ]);
-      } else return view('menu.club.cards.add',[
-        'alert_title' => 'Что-то пошло не так...',
-        'alert_text'  => 'Запись не добавлена',
-        'alert_type'    => 'alert-error'
-        ]);
+      }
     }
 }

@@ -5,3 +5,11 @@
 a.site_title>span{
 	font-family: 'Exo 2';
 }
+
+.panel_toolbox>li>a {
+	color: #fff;
+}
+
+.panel_toolbox>li>a:hover {
+	background-color: #337ab7;
+	}
