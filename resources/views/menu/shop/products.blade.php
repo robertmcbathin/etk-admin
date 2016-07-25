@@ -36,7 +36,11 @@
                     <tr class="headings">
                       <th class="column-title">#</th>
                       <th class="column-title">Наименование</th>
-                      <th class="column-title">Цена</th>
+                      <th class="column-title">Цена (розница)</th>
+                      <th class="column-title">Цена (по карте)</th>
+                      <th class="column-title">Наличие</th>
+                      <th class="column-title">На складе</th>
+                      <th class="column-title">Опубликовано</th>
                       <th class="column-title no-link last">
                         <span class="nobr">Действие</span>
                       </th>
@@ -53,17 +57,46 @@
 
                   <tbody>
                     @foreach ($products as $product)
+                    @if ($product->subcategory_id == $subcategory->id)
                     <tr>
                       <th scope="row">{{ $product->id }}</th>
                       <td>{{ $product->name }}</td>
                       <td>{{ $product->price }}</td>
+                      <td>{{ $product->price_by_card }}</td>
+                      <td>{{ $product->in_stock }}</td>
+                      <td>{{ $product->availability }}</td>
+                      <td>
+                         @if ($product->published == 1)
+                          <i class="fa fa-circle" style="color:#00ff00"></i>
+                        @endif
+                         @if ($product->published == 0)
+                          <i class="fa fa-circle" style="color:#ff0000"></i>
+                        @endif
+                      </td>
                       <td class=" last">
                         <a href="/shop/products/{{$product->
                           id}}/delete" class="btn btn-danger">
                           <i class="fa fa-trash"></i>
                         </a>
+                        <a href="/shop/products/{{$product->
+                          id}}/edit" class="btn btn-primary">
+                          <i class="fa fa-pencil"></i>
+                        </a>
+                        @if ($product->published == 1)
+                        <a href="/shop/products/{{$product->
+                          id}}/lock" class="btn btn-primary">
+                          <i class="fa fa-lock"></i>
+                        </a>
+                        @endif
+                        @if ($product->published == 0)
+                        <a href="/shop/products/{{$product->
+                          id}}/unlock" class="btn btn-primary">
+                          <i class="fa fa-unlock"></i>
+                        </a>
+                        @endif
                       </td>
                     </tr>
+                    @endif
                     @endforeach
                   </tbody>
                 </table>

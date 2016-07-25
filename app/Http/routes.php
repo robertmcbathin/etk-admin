@@ -105,4 +105,12 @@ Route::group(['middleware' => ['auth']], function(){
 		'ProductController@postDeleteProduct',
 		'as' => 'shop.products.delete.post'
 		]);	
+	Route::get('/shop/products/{id}/unlock', ['uses' => 
+		'ProductController@postUnlockProduct',
+		'as' => 'shop.products.unlock.get'
+		]);	
+	Route::get('/shop/products/{id}/lock', ['uses' => 
+		'ProductController@postLockProduct',
+		'as' => 'shop.products.lock.get'
+		]);	
 });

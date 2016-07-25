@@ -225,4 +225,19 @@ class ProductController extends Controller
     	DB::table('subcategories')->where('id',$id)->delete();
     	return redirect()->back();
     }
+
+    public function postUnlockProduct($id)
+    {
+      DB::table('products')
+                ->where('id', $id)
+                ->update(['published' => 1]);
+      return redirect()->back();
+    }
+    public function postLockProduct($id)
+    {
+      DB::table('products')
+                ->where('id', $id)
+                ->update(['published' => 0]);
+      return redirect()->back();
+    }
 }
