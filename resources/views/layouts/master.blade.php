@@ -22,8 +22,10 @@
 
     <!-- Custom Theme Style -->
     <link href="{{ URL::to('src/build/css/custom.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('src/build/css/custom.min.css') }}" rel="stylesheet">
+    iCheck/skins/flat/green.css
     <!-- Mercile55 overwrite Theme Style -->
-    <link href="{{ URL::to('src/build/css/m55.css') }}" rel="stylesheet">
+    <link href="{{ URL::to('src/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
   </head>
 
   <body class="nav-md">
@@ -71,6 +73,10 @@
     <script src="{{ URL::to('src/vendors/Flot/jquery.flot.time.js')}}"></script>
     <script src="{{ URL::to('src/vendors/Flot/jquery.flot.stack.js')}}"></script>
     <script src="{{ URL::to('src/vendors/Flot/jquery.flot.resize.js')}}"></script>
+    <!-- Switchery -->
+        <!-- iCheck -->
+    <script src="{{ URL::to('src/vendors/iCheck/icheck.min.js')}}"></script>
+
     <!-- Flot plugins -->
     <script src="{{ URL::to('src/js/flot/jquery.flot.orderBars.js')}}"></script>
     <script src="{{ URL::to('src/js/flot/date.js')}}"></script>

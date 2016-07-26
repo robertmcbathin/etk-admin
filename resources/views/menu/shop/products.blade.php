@@ -100,12 +100,14 @@
                     @endforeach
                   </tbody>
                 </table>
+
               </div>
                           </div>
                         </div>
                       </div>
                       @endif
                       @endforeach
+                      <a class="btn btn-primary" href="http://etk-admin/shop/products/{{$category->id}}/add"><i class="fa fa-plus"></i>Добавить</a>
                     </div>
                     <!-- end of accordion -->
 

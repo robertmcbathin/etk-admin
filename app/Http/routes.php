@@ -93,14 +93,6 @@ Route::group(['middleware' => ['auth']], function(){
 		'ProductController@showProducts',
 		'as' => 'shop.products'
 		]);	
-	Route::get('/shop/products/add', ['uses' => 
-		'ProductController@getAddProduct',
-		'as' => 'shop.products.add.get'
-		]);	
-	Route::post('/shop/products/add', ['uses' => 
-		'ProductController@postAddProduct',
-		'as' => 'shop.products.add.post'
-		]);	
 	Route::get('/shop/products/{id}/delete', ['uses' => 
 		'ProductController@postDeleteProduct',
 		'as' => 'shop.products.delete.post'
@@ -112,5 +104,13 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/shop/products/{id}/lock', ['uses' => 
 		'ProductController@postLockProduct',
 		'as' => 'shop.products.lock.get'
+		]);	
+	Route::get('/shop/products/{category_id}/add', ['uses' => 
+		'ProductController@getAddProduct',
+		'as' => 'shop.products.add.get'
+		]);	
+	Route::post('/shop/products/add', ['uses' => 
+		'ProductController@postAddProduct',
+		'as' => 'shop.products.add.post'
 		]);	
 });

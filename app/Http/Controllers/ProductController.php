@@ -164,16 +164,22 @@ class ProductController extends Controller
         ]);
     }
 
-  	public function getAddProduct()
+  	public function getAddProduct($category_id)
     {
-    	$subcategories = DB::table('subcategories')
-    					->select('name')
-    					->get();
+    	$category = DB::table('categories')
+              ->where('id', $category_id)
+    					->first();
+      $subcategories = DB::table('subcategories')
+              ->select('name')
+              ->where('category_id', $category_id)
+              ->get();
     	return view('menu.shop.add_product',[
     		'alert_title' => '',
             'alert_text'  => '',
             'alert_type'    => '',
+            'category' => $category,
             'subcategories' => $subcategories
+
     		]);
     }
 
@@ -181,13 +187,24 @@ class ProductController extends Controller
     {
     	/*VALIDATING INPUT*/
       $this->validate($request,[
+        'name' => 'required|min:1|max:255',
+        'short_description' => 'required|min:1|max:255',
+        'long_description' => 'required|min:1|max:255',
         'subcategory_name' => 'required',
-        'category_name' => 'required'
+        'price' => 'required|numeric',
+        'price_by_card' => 'required|numeric',
+        'price_by_action' => 'numeric',
+        'price_by_purchase' => 'numeric',
+        'price_by_purchase_card' => 'numeric',
+        'path_to_img' => 'url',
+        'in_stock' => 'required'
         ]);
       /*INIT VARIABLES*/
-      $subcategory_name  = $request['subcategory_name'];
-      $category_name       = $this->objectToArray($request['category_name']);
-
+      $published         = $request['published'];
+      $name              = $request['name'];
+      $short_description = $request['short_description'];
+      $long_description  = $request['long_description'];
+      $subcategory_name  = $this->objectToArray($request['subcategory_name']);
       $category_id = DB::table('categories')
       					->select('id')
       					->where('name',$category_name)
@@ -212,7 +229,7 @@ class ProductController extends Controller
         ]))
       {return view('menu.shop.add_subcategory',[
         'alert_title' => 'Запись добавлена',
-        'alert_text'  => 'Добавлена новая подкатегория',
+        'alert_text'  => 'Добавлен новый товар',
         'alert_type'    => 'alert-success',
         'categories' => ''
         ]);
@@ -222,7 +239,7 @@ class ProductController extends Controller
 
     public function postDeleteProduct($id)
     {
-    	DB::table('subcategories')->where('id',$id)->delete();
+    	DB::table('products')->where('id',$id)->delete();
     	return redirect()->back();
     }
 
