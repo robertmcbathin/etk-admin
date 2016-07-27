@@ -170,7 +170,6 @@ class ProductController extends Controller
               ->where('id', $category_id)
     					->first();
       $subcategories = DB::table('subcategories')
-              ->select('name')
               ->where('category_id', $category_id)
               ->get();
     	return view('menu.shop.add_product',[
@@ -183,14 +182,32 @@ class ProductController extends Controller
     		]);
     }
 
-    public function postAddProduct(Request $request)
-    {
-    	/*VALIDATING INPUT*/
+    public function getEditProduct($category_id, $subcategory_id, $id)
+    { 
+      $category = DB::table('categories')
+              ->where('id', $category_id)
+              ->first();
+      $subcategories = DB::table('subcategories')
+              ->where('category_id', $category_id)
+              ->get();
+      $product = DB::table('products')
+                   ->where('id', $id)
+                   ->first();
+
+      return view('menu.shop.edit_product',[
+            'product'    => $product,
+            'subcategories' => $subcategories,
+            'category' => $category
+        ]);
+    }
+
+    public function postEditProduct(Request $request)
+    { 
       $this->validate($request,[
         'name' => 'required|min:1|max:255',
         'short_description' => 'required|min:1|max:255',
         'long_description' => 'required|min:1|max:255',
-        'subcategory_name' => 'required',
+        'subcategory_id' => 'required',
         'price' => 'required|numeric',
         'price_by_card' => 'required|numeric',
         'price_by_action' => 'numeric',
@@ -199,39 +216,140 @@ class ProductController extends Controller
         'path_to_img' => 'url',
         'in_stock' => 'required'
         ]);
+      /*DEFAULT VALUES FOR VARIABLES*/
+      $published              = 1;
+      $price_by_action        = null;
+      $price_by_purchase      = null;
+      $price_by_purchase_card = null;
+      $path_to_img = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=320%C3%97150&w=320&h=150';
       /*INIT VARIABLES*/
-      $published         = $request['published'];
-      $name              = $request['name'];
-      $short_description = $request['short_description'];
-      $long_description  = $request['long_description'];
-      $subcategory_name  = $this->objectToArray($request['subcategory_name']);
-      $category_id = DB::table('categories')
-      					->select('id')
-      					->where('name',$category_name)
-      					->first();
+   /*   $published              = $request['published'];*/
+      $id                     = $request['product_id'];
+      $name                   = $request['name'];
+      $short_description      = $request['short_description'];
+      $long_description       = $request['long_description'];
 
-      $subcategory = DB::table('subcategories')->where('name',$subcategory_name)
-                                  ->first();
-        if($subcategory !== NULL)
+      $subcategory_id         = $request['subcategory_id'];
+
+      $price                  = $request['price'];
+      $price_by_card          = $request['price_by_card'];
+      $price_by_action        = $request['price_by_action'];
+      $price_by_purchase      = $request['price_by_purchase'];
+      $price_by_purchase_card = $request['price_by_purchase_card'];
+      $path_to_img            = $request['path_to_img'];
+      $in_stock               = $request['in_stock'];
+      $availability           = $request['availability'];
+ 
+      /*CHECK PRODUCT NAME*/
+      $product_name = DB::table('products')
+                        ->where('name', $name)
+                        ->first();
+      if(($product_name !== NULL) && ($product_name == $name))
         {
-            return view('menu.shop.add_subcategory',[
-              'alert_title' => 'Такая подкатегория уже существует!',
+            return view('menu.shop.edit_product',[
+              'alert_title' => 'Товар с таким именем уже существует! Проявите фантазию',
               'alert_text'  => 'Запись не добавлена',
               'alert_type'    => 'alert-error',
-              'categories' => ''
+              'subcategories' => NULL,
+              'category' => NULL
+            ]);
+        }
+      DB::table('products')
+        ->where('id', $id)
+        ->update([
+          'name' => $name,
+          'short_description' => $short_description,
+          'long_description' => $long_description,
+          'subcategory_id' => $subcategory_id,
+          'price' => $price,
+          'price_by_card' => $price_by_card,
+          'price_by_action' => $price_by_action,
+          'price_by_purchase' => $price_by_purchase,
+          'price_by_purchase_card' => $price_by_purchase_card,
+          'path_to_img' => $path_to_img,
+          'in_stock' => $in_stock,
+          'availability' => $availability
+          ]);
+        /*----------------------*/
+      return redirect()->back();
+    }
+
+    public function postAddProduct(Request $request)
+    {
+    	/*VALIDATING INPUT*/
+      $this->validate($request,[
+        'name' => 'required|min:1|max:255',
+        'short_description' => 'required|min:1|max:255',
+        'long_description' => 'required|min:1|max:255',
+        'subcategory_id' => 'required',
+        'price' => 'required|numeric',
+        'price_by_card' => 'required|numeric',
+        'price_by_action' => 'numeric',
+        'price_by_purchase' => 'numeric',
+        'price_by_purchase_card' => 'numeric',
+        'path_to_img' => 'url',
+        'in_stock' => 'required'
+        ]);
+      /*DEFAULT VALUES FOR VARIABLES*/
+      $published              = 1;
+      $price_by_action        = null;
+      $price_by_purchase      = null;
+      $price_by_purchase_card = null;
+      $path_to_img = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=320%C3%97150&w=320&h=150';
+      /*INIT VARIABLES*/
+   /*   $published              = $request['published'];*/
+      $name                   = $request['name'];
+      $short_description      = $request['short_description'];
+      $long_description       = $request['long_description'];
+
+      $subcategory_id         = $request['subcategory_id'];
+
+      $price                  = $request['price'];
+      $price_by_card          = $request['price_by_card'];
+      $price_by_action        = $request['price_by_action'];
+      $price_by_purchase      = $request['price_by_purchase'];
+      $price_by_purchase_card = $request['price_by_purchase_card'];
+      $path_to_img            = $request['path_to_img'];
+      $in_stock               = $request['in_stock'];
+      $availability           = $request['availability'];
+ 
+      /*CHECK PRODUCT NAME*/
+      $product_name = DB::table('products')
+                        ->where('name', $name)
+                        ->first();
+      if($product_name !== NULL)
+        {
+            return view('menu.shop.add_product',[
+              'alert_title' => 'Товар с таким именем уже существует! Проявите фантазию',
+              'alert_text'  => 'Запись не добавлена',
+              'alert_type'    => 'alert-error',
+              'subcategories' => NULL,
+              'category' => NULL
             ]);
         }
         /*----------------------*/
 
-      if (DB::table('subcategories')->insert([
-        'name'            => $subcategory_name,
-        'category_id' => $category_id->id
-        ]))
-      {return view('menu.shop.add_subcategory',[
+      if (DB::table('products')->insert([
+        'name'                   => $name,
+        'short_description'      => $short_description,
+        'long_description'       => $long_description,
+        'price'                  => $price,
+        'price_by_card'          => $price_by_card,
+        'price_by_action'        => $price_by_action,
+        'price_by_purchase'      => $price_by_purchase,
+        'price_by_purchase_card' => $price_by_purchase_card,
+        'path_to_img'            => $path_to_img,
+        'in_stock'               => $in_stock,
+        'availability'           => $availability,
+        'published'              => $published,
+        'subcategory_id'         => $subcategory_id
+        ]))   
+      {return view('menu.shop.add_product',[
         'alert_title' => 'Запись добавлена',
         'alert_text'  => 'Добавлен новый товар',
         'alert_type'    => 'alert-success',
-        'categories' => ''
+        'subcategories' => NULL,
+        'category' => NULL
         ]);
       }
     }

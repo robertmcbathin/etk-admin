@@ -109,6 +109,14 @@ Route::group(['middleware' => ['auth']], function(){
 		'ProductController@getAddProduct',
 		'as' => 'shop.products.add.get'
 		]);	
+	Route::get('/shop/products/{category_id}/{subcategory_id}/{id}/edit', ['uses' => 
+		'ProductController@getEditProduct',
+		'as' => 'shop.products.edit.get'
+		]);	
+	Route::post('/shop/products/{id}/edit', ['uses' => 
+		'ProductController@postEditProduct',
+		'as' => 'shop.products.edit.post'
+		]);	
 	Route::post('/shop/products/add', ['uses' => 
 		'ProductController@postAddProduct',
 		'as' => 'shop.products.add.post'

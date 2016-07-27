@@ -36,6 +36,7 @@
                     <tr class="headings">
                       <th class="column-title">#</th>
                       <th class="column-title">Наименование</th>
+                      <th class="column-title">Изображение</th>
                       <th class="column-title">Цена (розница)</th>
                       <th class="column-title">Цена (по карте)</th>
                       <th class="column-title">Наличие</th>
@@ -61,6 +62,9 @@
                     <tr>
                       <th scope="row">{{ $product->id }}</th>
                       <td>{{ $product->name }}</td>
+                      <td>
+                      <img src="{{ $product->path_to_img }}" alt="" height="50">
+                      </td>
                       <td>{{ $product->price }}</td>
                       <td>{{ $product->price_by_card }}</td>
                       <td>{{ $product->in_stock }}</td>
@@ -78,7 +82,7 @@
                           id}}/delete" class="btn btn-danger">
                           <i class="fa fa-trash"></i>
                         </a>
-                        <a href="/shop/products/{{$product->
+                        <a href="/shop/products/{{ $category->id }}/{{$subcategory->id}}/{{$product->
                           id}}/edit" class="btn btn-primary">
                           <i class="fa fa-pencil"></i>
                         </a>

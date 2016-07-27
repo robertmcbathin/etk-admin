@@ -23,7 +23,6 @@
     <!-- Custom Theme Style -->
     <link href="{{ URL::to('src/build/css/custom.min.css') }}" rel="stylesheet">
     <link href="{{ URL::to('src/build/css/custom.min.css') }}" rel="stylesheet">
-    iCheck/skins/flat/green.css
     <!-- Mercile55 overwrite Theme Style -->
     <link href="{{ URL::to('src/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
   </head>
