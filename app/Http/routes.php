@@ -24,7 +24,7 @@ Route::group(['middleware' => ['web']], function(){
 Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/settings/users', [
-    	'uses' => 'Auth\AuthController@getRegister',
+    	'uses' => 'EmployeeController@getUserList',
 		'as' => 'settings.users'
 		]);
 
