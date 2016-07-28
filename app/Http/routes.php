@@ -20,17 +20,14 @@ Route::group(['middleware' => ['web']], function(){
     Route::post('/auth/login', 'Auth\AuthController@postLogIn');
     Route::get('/auth/logout', 'Auth\AuthController@getLogOut');
 
+});
+Route::group(['middleware' => ['auth']], function(){
+
     Route::get('/settings/users', [
     	'uses' => 'Auth\AuthController@getRegister',
 		'as' => 'settings.users'
 		]);
 
-});
-	Route::get('/dashboard', [
-		'uses' => 'EmployeeController@getDashboard', 
-		'as' => 'dashboard'
-	]);
-Route::group(['middleware' => ['auth']], function(){
 	Route::get('/dashboard', [
 		'uses' => 'EmployeeController@getDashboard', 
 		'as' => 'dashboard'
