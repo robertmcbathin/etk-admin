@@ -4,6 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CardHolder extends Model
+class Cardholder extends Model
 {
 }

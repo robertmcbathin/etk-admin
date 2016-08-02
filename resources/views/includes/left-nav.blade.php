@@ -4,7 +4,7 @@ $username = Auth::user()->username;
 <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><img src="{{ URL::to('/src/images/etk-club-logo-static.png') }}" width="32" alt=""><span>ETK-Admin</span></a>
+              <a href="/dashboard" class="site_title"><img src="{{ URL::to('/src/images/etk-club-logo-static.png') }}" width="32" alt=""><span>ETK-Admin</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -40,7 +40,14 @@ $username = Auth::user()->username;
                         </li>
                       </ul>
                       </li>
-                      <li><a href="index2.html">Держатели</a></li>
+                      <li><a>Держатели <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="{{ route('club.cardholders.list') }}">Список</a>
+                        </li>
+                        <li class="sub_menu"><a href="{{ route('club.cardholders.add.get') }}">Добавить</a>
+                        </li>
+                      </ul>
+                      </li>
                       <li><a href="index3.html">Еще какой-то пункт</a></li>
                     </ul>
                   </li>

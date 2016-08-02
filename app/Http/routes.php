@@ -16,9 +16,9 @@ Route::group(['middleware' => ['web']], function(){
 	})->name('home');
 
     // Маршруты аутентификации...
-    Route::get('/auth/login', 'Auth\AuthController@getLogIn');
-    Route::post('/auth/login', 'Auth\AuthController@postLogIn');
-    Route::get('/auth/logout', 'Auth\AuthController@getLogOut');
+    Route::get('/login',  'EmployeeController@getLogIn');
+    Route::post('/login', 'EmployeeController@postLogIn');
+    Route::get('/logout', 'EmployeeController@getLogOut');
 
 });
 Route::group(['middleware' => ['auth']], function(){
@@ -54,6 +54,19 @@ Route::group(['middleware' => ['auth']], function(){
 		'CardController@showActivatedCards',
 		'as' => 'club.cards.activated'
 		]);
+	Route::get('/club/cardholders/list', ['uses' => 
+		'CardholderController@showCardholderList',
+		'as' => 'club.cardholders.list'
+		]);
+	Route::get('/club/cardholders/add', ['uses' => 
+		'CardholderController@getCardholderAdd',
+		'as' => 'club.cardholders.add.get'
+		]);
+	Route::post('/club/cardholders/add', ['uses' => 
+		'CardholderController@postCardholderAdd',
+		'as' => 'club.cardholders.add.post'
+		]);
+
 	/*SHOP ROUTES*/
 	/*CATEGORIES*/
 	Route::get('/shop/categories', ['uses' => 
