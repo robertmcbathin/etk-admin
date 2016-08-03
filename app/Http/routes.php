@@ -66,6 +66,26 @@ Route::group(['middleware' => ['auth']], function(){
 		'CardholderController@postCardholderAdd',
 		'as' => 'club.cardholders.add.post'
 		]);
+	Route::get('/club/{cardholder_id}/edit', ['uses' => 
+		'CardholderController@getEditCardholder',
+		'as' => 'club.cardholders.edit.get'
+		]);	
+	Route::post('/club/cardholders/{cardholder_id}/edit', ['uses' => 
+		'CardholderController@postEditCardholder',
+		'as' => 'club.cardholders.edit.post'
+		]);	
+	Route::get('/club/cardholders/{cardholder_id}/delete', ['uses' => 
+		'CardholderController@getDeleteCardholder',
+		'as' => 'club.cardholders.delete.get'
+		]);	
+	Route::get('/club/cardholders/{cardholder_id}/unlock', ['uses' => 
+		'CardholderController@getUnlockCardholder',
+		'as' => 'club.cardholders.unlock.get'
+		]);	
+	Route::get('/club/cardholders/{cardholder_id}/lock', ['uses' => 
+		'CardholderController@getLockCardholder',
+		'as' => 'club.cardholders.lock.get'
+		]);
 
 	/*SHOP ROUTES*/
 	/*CATEGORIES*/

@@ -48,6 +48,7 @@
                           <th>ID карты</th>
                           <th>Активность</th>
                           <th>Промо-код</th>
+                          <th>Действия</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -65,8 +66,35 @@
                           <td>{{ $cardholder->created_at }}</td>
                           <td>{{ $cardholder->updated_at }}</td>
                           <td>{{ $cardholder->card_id }}</td>
-                          <td>{{ $cardholder->is_active }}</td>
+                          <td>
+                          @if ($cardholder->is_active == 1)
+                           <i class="fa fa-circle" style="color:#00ff00"></i>
+                          @endif
+                          @if ($cardholder->is_active == 0)
+                           <i class="fa fa-circle" style="color:#ff0000"></i>
+                          @endif</td>
                           <td>{{ $cardholder->promocode }}</td>
+                          <td class=" last">
+                        <a href="/club/cardholders/{{$cardholder->
+                          id}}/delete" class="btn btn-danger">
+                          <i class="fa fa-trash"></i>
+                        </a>
+                        <a href="/club/cardholders/{{ $cardholder->id }}/edit" class="btn btn-primary">
+                          <i class="fa fa-pencil"></i>
+                        </a>
+                        @if ($cardholder->is_active == 1)
+                        <a href="/club/cardholders/{{$cardholder->
+                          id}}/lock" class="btn btn-primary">
+                          <i class="fa fa-lock"></i>
+                        </a>
+                        @endif
+                        @if ($cardholder->is_active == 0)
+                        <a href="/club/cardholders/{{$cardholder->
+                          id}}/unlock" class="btn btn-primary">
+                          <i class="fa fa-unlock"></i>
+                        </a>
+                        @endif
+                      </td>
                         </tr>
 					   @endforeach
                       </tbody>
