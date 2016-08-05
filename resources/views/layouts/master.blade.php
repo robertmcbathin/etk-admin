@@ -11,6 +11,7 @@
 
     <!-- Bootstrap -->
     <link href="{{ URL::to('src/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <!-- Font Awesome -->
     <link href="{{ URL::to('src/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- iCheck -->
