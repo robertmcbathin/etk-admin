@@ -67,7 +67,18 @@
                       </td>
                       <td>{{ $product->price }}</td>
                       <td>{{ $product->price_by_card }}</td>
-                      <td>{{ $product->in_stock }}</td>
+                      @if ($product->in_stock == 1)
+                      <td>В наличии</td>
+                      @endif
+                      @if ($product->in_stock == 2)
+                      <td>На заказ</td>
+                      @endif
+                      @if ($product->in_stock == 3)
+                      <td>По закупке</td>
+                      @endif
+                      @if ($product->in_stock == 4)
+                      <td>Снято с продажи</td>
+                      @endif
                       <td>{{ $product->availability }}</td>
                       <td>
                          @if ($product->published == 1)
