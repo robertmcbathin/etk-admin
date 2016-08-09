@@ -47,7 +47,7 @@
                        <div class="form-group {{ $errors->has('subcategory_id') ? 'has-error' : ''}}">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="subcategory_id">Подкатегория</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="subcategory_id" {{ $product->short_description }}>
+                          <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="subcategory_id" value="{{ $product->subcategory_id }}">
                           @if ($subcategories !== NULL)
                             @foreach ($subcategories as $subcategory)
                               <option value="{{$subcategory->id}}">{{ $subcategory->name }}</option>
