@@ -351,6 +351,7 @@ class ProductController extends Controller
         'in_stock' => 'required'
         ]);
       /*DEFAULT VALUES FOR VARIABLES*/
+      $priority               = 4;
       $id                     =$request['product_id'];
       $published              = 1;
       $price_by_action        = null;
@@ -366,6 +367,7 @@ class ProductController extends Controller
 
       $subcategory_id         = $request['subcategory_id'];
 
+      $price_by_supplier      = $request['price_by_supplier'];
       $price                  = $request['price'];
       $price_by_card          = $request['price_by_card'];
       $price_by_action        = $request['price_by_action'];
@@ -374,7 +376,14 @@ class ProductController extends Controller
       $path_to_img            = $request['path_to_img'];
       $in_stock               = $request['in_stock'];
       $availability           = $request['availability'];
- 
+      $priority               = $request['priority'];
+      
+      $image = $request->file('image');
+      $imagename = 'products/' . $this->str2url($request['name']) . '.jpg';
+      if ($image){
+        Storage::disk('public')->put($imagename, File::get($image));
+        $path_to_img = 'http://etk-admin.ru/src/images/' . $imagename;
+      }
       /*CHECK PRODUCT NAME*/
       $product_name = DB::table('products')
                         ->where('name', $name)
@@ -396,6 +405,7 @@ class ProductController extends Controller
           'short_description' => $short_description,
           'long_description' => $long_description,
           'subcategory_id' => $subcategory_id,
+          'price_by_supplier' => $price_by_supplier,
           'price' => $price,
           'price_by_card' => $price_by_card,
           'price_by_action' => $price_by_action,
@@ -403,7 +413,8 @@ class ProductController extends Controller
           'price_by_purchase_card' => $price_by_purchase_card,
           'path_to_img' => $path_to_img,
           'in_stock' => $in_stock,
-          'availability' => $availability
+          'availability' => $availability,
+          'priority'               => $priority
           ]);
         /*----------------------*/
       return redirect()->back();
