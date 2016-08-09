@@ -341,7 +341,6 @@ class ProductController extends Controller
       $this->validate($request,[
         'name' => 'required|min:1|max:255',
         'short_description' => 'required|min:1|max:255',
-        'long_description' => 'required|min:1|max:255',
         'subcategory_id' => 'required',
         'price' => 'required|numeric',
         'price_by_card' => 'required|numeric',
@@ -352,6 +351,7 @@ class ProductController extends Controller
         'in_stock' => 'required'
         ]);
       /*DEFAULT VALUES FOR VARIABLES*/
+      $id                     =$request['product_id'];
       $published              = 1;
       $price_by_action        = null;
       $price_by_purchase      = null;
