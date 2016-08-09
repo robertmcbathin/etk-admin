@@ -22,7 +22,7 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/shop/products/{{$product->id}}/edit" method="POST">
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/shop/products/{{$product->id}}/edit" method="POST" enctype="multipart/form-data">
                       <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name" >Наименование<span class="required">*</span>
                         </label>
