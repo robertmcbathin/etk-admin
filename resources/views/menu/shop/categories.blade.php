@@ -49,6 +49,8 @@
                           <td>{{ $category->updated_at }}</td>
                           <td>{{ $category->created_at }}</td>
                           <td class=" last"><a href="/shop/categories/{{$category->id}}/delete" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                          <a href="/shop/categories/{{ $category->id }}/edit" class="btn btn-primary">
+                          <i class="fa fa-pencil"></i>
                             </td>
                         </tr>
                         @endforeach
@@ -93,6 +95,8 @@
                           <td>{{ $subcategory->updated_at }}</td>
                           <td>{{ $subcategory->created_at }}</td>
                           <td class=" last"><a href="/shop/categories/subcategory/{{$subcategory->id}}/delete" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                        <a href="/shop/categories/subcategory/{{ $subcategory->id }}/edit" class="btn btn-primary">
+                          <i class="fa fa-pencil"></i>
                             </td>
                         </tr>
                         @endforeach

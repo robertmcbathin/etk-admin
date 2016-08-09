@@ -33,7 +33,11 @@ Route::group(['middleware' => ['auth']], function(){
 		'as' => 'dashboard'
 	]);
 
-	/* CARD ROUTES */
+	/* CARD ROUTES 
+	----------------	
+    ----------------
+    ----------------
+	*/
 	Route::get('/club/cards', ['uses' => 
 		'CardController@showCardDashboard',
 		'as' => 'club.cards'
@@ -54,6 +58,11 @@ Route::group(['middleware' => ['auth']], function(){
 		'CardController@showActivatedCards',
 		'as' => 'club.cards.activated'
 		]);
+	/*CARDHOLDERS
+	----------------	
+    ----------------
+    ----------------
+	*/
 	Route::get('/club/cardholders/list', ['uses' => 
 		'CardholderController@showCardholderList',
 		'as' => 'club.cardholders.list'
@@ -88,7 +97,11 @@ Route::group(['middleware' => ['auth']], function(){
 		]);
 
 	/*SHOP ROUTES*/
-	/*CATEGORIES*/
+	/*CATEGORIES
+    ----------------	
+    ----------------
+    ----------------
+	*/
 	Route::get('/shop/categories', ['uses' => 
 		'ProductController@showCategories',
 		'as' => 'shop.categories'
@@ -101,11 +114,23 @@ Route::group(['middleware' => ['auth']], function(){
 		'ProductController@postAddCategory',
 		'as' => 'shop.categories.add.post'
 		]);	
+	Route::get('/shop/categories/{id}/edit', ['uses' => 
+		'ProductController@getEditCategory',
+		'as' => 'shop.categories.edit.get'
+		]);	
+	Route::post('/shop/categories/{id}/edit', ['uses' => 
+		'ProductController@postEditCategory',
+		'as' => 'shop.categories.edit.post'
+		]);	
 	Route::get('/shop/categories/{id}/delete', ['uses' => 
 		'ProductController@postDeleteCategory',
 		'as' => 'shop.categories.delete.post'
 		]);	
-	/*SUBCATEGORIES*/
+	/*SUBCATEGORIES
+    ----------------	
+    ----------------
+    ----------------
+	*/
 	Route::get('/shop/categories/subcategory/add', ['uses' => 
 		'ProductController@getAddSubCategory',
 		'as' => 'shop.categories.subcategory.add.get'
@@ -114,11 +139,27 @@ Route::group(['middleware' => ['auth']], function(){
 		'ProductController@postAddSubCategory',
 		'as' => 'shop.categories.subcategory.add.post'
 		]);	
+	Route::get('/shop/categories/subcategory/{id}/edit', ['uses' => 
+		'ProductController@getEditSubCategory',
+		'as' => 'shop.categories.subcategory.edit.get'
+		]);	
+	Route::post('/shop/categories/subcategory/{id}/edit', ['uses' => 
+		'ProductController@postEditSubCategory',
+		'as' => 'shop.categories.subcategory.edit.post'
+		]);	
 	Route::get('/shop/categories/subcategory/{id}/delete', ['uses' => 
 		'ProductController@postDeleteSubCategory',
 		'as' => 'shop.categories.subcategory.delete.post'
 		]);
-	/*PRODUCTS*/
+	/*----------------	
+    ----------------
+    ----------------
+	*/
+	/*PRODUCTS
+	----------------	
+    ----------------
+    ----------------
+	*/
 	Route::get('/shop/products', ['uses' => 
 		'ProductController@showProducts',
 		'as' => 'shop.products'

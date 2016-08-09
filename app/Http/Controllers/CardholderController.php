@@ -23,6 +23,16 @@ class CardholderController extends Controller
     		'cardholders_count' => $cardholders_count
     		]);
     }
+    public function getCardholderAdd()
+    {
+        $cardholders = DB::table('users')
+                         ->get();         
+        return view('menu.club.cardholders.add',[
+            'alert_title' => '',
+            'alert_text'  => '',
+            'alert_type'    => ''
+            ]);
+    }
     public function getDeleteCardholder($cardholder_id)
     {
       DB::transaction(function () use ($cardholder_id){

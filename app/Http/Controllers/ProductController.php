@@ -5,9 +5,53 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+
+    public function rus2translit($string) 
+    {  
+      $converter = array(
+        'а' => 'a',   'б' => 'b',   'в' => 'v',
+        'г' => 'g',   'д' => 'd',   'е' => 'e',
+        'ё' => 'e',   'ж' => 'zh',  'з' => 'z',
+        'и' => 'i',   'й' => 'y',   'к' => 'k',
+        'л' => 'l',   'м' => 'm',   'н' => 'n',
+        'о' => 'o',   'п' => 'p',   'р' => 'r',
+        'с' => 's',   'т' => 't',   'у' => 'u',
+        'ф' => 'f',   'х' => 'h',   'ц' => 'c',
+        'ч' => 'ch',  'ш' => 'sh',  'щ' => 'sch',
+        'ь' => '\'',  'ы' => 'y',   'ъ' => '\'',
+        'э' => 'e',   'ю' => 'yu',  'я' => 'ya',
+        
+        'А' => 'A',   'Б' => 'B',   'В' => 'V',
+        'Г' => 'G',   'Д' => 'D',   'Е' => 'E',
+        'Ё' => 'E',   'Ж' => 'Zh',  'З' => 'Z',
+        'И' => 'I',   'Й' => 'Y',   'К' => 'K',
+        'Л' => 'L',   'М' => 'M',   'Н' => 'N',
+        'О' => 'O',   'П' => 'P',   'Р' => 'R',
+        'С' => 'S',   'Т' => 'T',   'У' => 'U',
+        'Ф' => 'F',   'Х' => 'H',   'Ц' => 'C',
+        'Ч' => 'Ch',  'Ш' => 'Sh',  'Щ' => 'Sch',
+        'Ь' => '\'',  'Ы' => 'Y',   'Ъ' => '\'',
+        'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
+    );
+    return strtr($string, $converter);
+    }
+  public function str2url($str) 
+  {
+    // переводим в транслит
+    $str = $this->rus2translit($str);
+    // в нижний регистр
+    $str = strtolower($str);
+    // заменям все ненужное нам на "-"
+    $str = preg_replace('~[^-a-z0-9_]+~u', '-', $str);
+    // удаляем начальные и конечные '-'
+    $str = trim($str, "-");
+    return $str;
+  }
 	public function objectToArray($data)
     {
        $array = (array)$data;
@@ -53,6 +97,54 @@ class ProductController extends Controller
       {return view('menu.shop.add_category',[
         'alert_title' => 'Запись добавлена',
         'alert_text'  => 'Добавлена новая категория',
+        'alert_type'    => 'alert-success'
+        ]);
+      }
+    }
+
+    public function getEditCategory($category_id)
+    {
+      $category = DB::table('categories')
+              ->where('id', $category_id)
+              ->first();
+      return view('menu.shop.edit_category',[
+        'category' => $category,
+        'alert_title' => '',
+        'alert_type'    => ''
+        ]);
+    }
+    public function postEditCategory(Request $request)
+    {
+      /*VALIDATING INPUT*/
+      $this->validate($request,[
+        'category_name' => 'required'
+        ]);
+      /*INIT VARIABLES*/
+      $category_name  = $request['category_name'];
+      $category_id  = $request['category_id'];
+
+      /*CHECK CARD CREDENTIALS*/
+      $category = DB::table('categories')->where('name',$category_name)
+                                  ->first();
+        if($category !== NULL)
+        {
+            return view('menu.shop.edit_category',[
+              'category'   => $category,
+              'alert_title' => 'Зачем сохранять то же название?!',
+              'alert_text'  => 'Название категории не изменено',
+              'alert_type'    => 'alert-error'
+            ]);
+        }
+        /*----------------------*/
+
+      if (DB::table('categories')
+                   ->where('id',$category_id)
+                   ->update(['name' => $category_name
+        ]))
+      {return view('menu.shop.edit_category',[
+        'category'   => $category,
+        'alert_title' => 'Запись изменена',
+        'alert_text'  => 'Название категории изменено',
         'alert_type'    => 'alert-success'
         ]);
       }
@@ -133,7 +225,50 @@ class ProductController extends Controller
         ]);
       }
     }
+     public function getEditSubCategory($subcategory_id)
+    {
+      $categories = DB::table('categories')
+                          ->get();
+      $subcategory = DB::table('subcategories')
+              ->where('id', $subcategory_id)
+              ->first();
+      return view('menu.shop.edit_subcategory',[
+        'categories' => $categories,
+        'subcategory' => $subcategory,
+        'alert_title' => '',
+        'alert_type'    => ''
+        ]);
+    }
+    public function postEditSubCategory(Request $request)
+    {
+      /*VALIDATING INPUT*/
+      $this->validate($request,[
+        'subcategory_name' => 'required',
+        'category_name' => 'required'
+        ]);
+      /*INIT VARIABLES*/
+      $subcategory_name  = $request['subcategory_name'];
+      $category_name       = $this->objectToArray($request['category_name']);
+      $subcategory_id  = $request['subcategory_id'];
 
+      $category = DB::table('categories')
+                         ->where('name', $category_name)
+                         ->first();
+        /*----------------------*/
+
+      if (DB::table('subcategories')
+                   ->where('id',$subcategory_id)
+                   ->update(['name' => $subcategory_name,
+                    'category_id' => $category->id
+        ]))
+      {return view('menu.shop.edit_category',[
+        'category'   => $category,
+        'alert_title' => 'Запись изменена',
+        'alert_text'  => 'Название подкатегории изменено',
+        'alert_type'    => 'alert-success'
+        ]);
+      }
+    }
 
     public function postDeleteSubCategory($id)
     {
@@ -221,10 +356,10 @@ class ProductController extends Controller
       $price_by_action        = null;
       $price_by_purchase      = null;
       $price_by_purchase_card = null;
+
       $path_to_img = 'https://placeholdit.imgix.net/~text?txtsize=33&txt=320%C3%97150&w=320&h=150';
       /*INIT VARIABLES*/
    /*   $published              = $request['published'];*/
-      $id                     = $request['product_id'];
       $name                   = $request['name'];
       $short_description      = $request['short_description'];
       $long_description       = $request['long_description'];
@@ -280,8 +415,8 @@ class ProductController extends Controller
       $this->validate($request,[
         'name' => 'required|min:1|max:255',
         'short_description' => 'required|min:1|max:255',
-        'long_description' => 'required|min:1|max:255',
         'subcategory_id' => 'required',
+        'price_by_supplier' => 'required|numeric',
         'price' => 'required|numeric',
         'price_by_card' => 'required|numeric',
         'price_by_action' => 'numeric',
@@ -291,6 +426,7 @@ class ProductController extends Controller
         'in_stock' => 'required'
         ]);
       /*DEFAULT VALUES FOR VARIABLES*/
+      $priority               = 4;
       $published              = 1;
       $price_by_action        = null;
       $price_by_purchase      = null;
@@ -303,7 +439,8 @@ class ProductController extends Controller
       $long_description       = $request['long_description'];
 
       $subcategory_id         = $request['subcategory_id'];
-
+      
+      $price_by_supplier      = $request['price_by_supplier'];
       $price                  = $request['price'];
       $price_by_card          = $request['price_by_card'];
       $price_by_action        = $request['price_by_action'];
@@ -312,7 +449,16 @@ class ProductController extends Controller
       $path_to_img            = $request['path_to_img'];
       $in_stock               = $request['in_stock'];
       $availability           = $request['availability'];
- 
+      $priority               = $request['priority'];
+      
+
+      $image = $request->file('image');
+      $imagename = 'products/' . $this->str2url($request['name']) . '.jpg';
+      if ($image){
+        Storage::disk('public')->put($imagename, File::get($image));
+        $path_to_img = 'http://etk-admin.ru/src/images/' . $imagename;
+      }
+
       /*CHECK PRODUCT NAME*/
       $product_name = DB::table('products')
                         ->where('name', $name)
@@ -333,6 +479,7 @@ class ProductController extends Controller
         'name'                   => $name,
         'short_description'      => $short_description,
         'long_description'       => $long_description,
+        'price_by_supplier'      => $price_by_supplier,
         'price'                  => $price,
         'price_by_card'          => $price_by_card,
         'price_by_action'        => $price_by_action,
@@ -342,7 +489,8 @@ class ProductController extends Controller
         'in_stock'               => $in_stock,
         'availability'           => $availability,
         'published'              => $published,
-        'subcategory_id'         => $subcategory_id
+        'subcategory_id'         => $subcategory_id,
+        'priority'               => $priority
         ]))   
       {return view('menu.shop.add_product',[
         'alert_title' => 'Запись добавлена',

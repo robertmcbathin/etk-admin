@@ -37,6 +37,7 @@
                       <th class="column-title">#</th>
                       <th class="column-title">Наименование</th>
                       <th class="column-title">Изображение</th>
+                      <th class="column-title">Цена (от поставщика)</th>
                       <th class="column-title">Цена (розница)</th>
                       <th class="column-title">Цена (по карте)</th>
                       <th class="column-title">Наличие</th>
@@ -65,6 +66,7 @@
                       <td>
                       <img src="{{ $product->path_to_img }}" alt="" height="50">
                       </td>
+                      <td>{{ $product->price_by_supplier }}</td>
                       <td>{{ $product->price }}</td>
                       <td>{{ $product->price_by_card }}</td>
                       @if ($product->in_stock == 1)
