@@ -49,8 +49,9 @@
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="subcategory_id" value="{{ $product->subcategory_id }}">
                           @if ($subcategories !== NULL)
+                             <option value="0">Выберите категорию (по умолчанию {{$product->subcategory_id}})</option>
                             @foreach ($subcategories as $subcategory)
-                              <option value="{{$subcategory->id}}">{{ $subcategory->name }}</option>
+                              <option value="{{$subcategory->id}}">{{ $subcategory->name }} ({{$product->subcategory_id}})</option>
                             @endforeach
                           @endif
                           </select><span class="select2 select2-container select2-container--default select2-container--above" dir="ltr" style="width: 551px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-labelledby="select2-ba1p-container"><span class="select2-selection__rendered" id="select2-ba1p-container"><span class="select2-selection__placeholder">Выберите категорию</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
