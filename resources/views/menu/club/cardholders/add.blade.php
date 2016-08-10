@@ -7,16 +7,6 @@
               <div class="title_left">
                 <h3>Новый пользователь</h3>
               </div>
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Поиск...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Искать</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
             </div>
 
             <div class="clearfix"></div>
@@ -31,18 +21,73 @@
                   <div class="x_content">
                     <br />
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{ route('club.cardholders.add.post') }}" method="POST">
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="login">Логин<span class="required">*</span>
+                    <h4>Информация о карте</h4>
+                      <div class="form-group card-group" >
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="serie">Серия<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="serie" name="card_serie" required="required" class="form-control col-md-7 col-xs-12" size="3" maxlength="3">
                         </div>
                       </div>
-                      <div class="form-group">
+                      <div class="form-group card-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="num">Номер<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="num" name="card_number" required="required" class="form-control col-md-7 col-xs-12" size="9" maxlength="15">
+                        </div>
+                      </div>
+                      <hr>
+                      <h4>Личная информация</h4>
+                      <hr>
+                      <div class="form-group" >
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="second_name">Фамилия<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="second_name" name="second_name" required="required" class="form-control col-md-7 col-xs-12" size="20" maxlength="50">
+                        </div>
+                      </div>
+                      <div class="form-group" >
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name">Имя<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="first_name" name="first_name" required="required" class="form-control col-md-7 col-xs-12" size="20" maxlength="50">
+                        </div>
+                      </div>
+                      <div class="form-group" >
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="third_name">Отчество<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="third_name" name="third_name" required="required" class="form-control col-md-7 col-xs-12" size="20" maxlength="50">
+                        </div>
+                      </div>
+                      <div class="form-group {{ $errors->has('in_stock') ? 'has-error' : ''}}">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Статус</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="age">
+                          <option value="0">Выберите возрастную категорию</option>
+                          <option value="1">14-20 лет</option>
+                          <option value="2">21-30 лет</option>
+                          <option value="3">31-40 лет</option>
+                          <option value="4">41-50 лет</option>
+                          <option value="3">51-60 лет</option>
+                          <option value="4">старше 61 года</option>
+                          </select><span class="select2 select2-container select2-container--default select2-container--above" dir="ltr" style="width: 551px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-labelledby="select2-ba1p-container"><span class="select2-selection__rendered" id="select2-ba1p-container"><span class="select2-selection__placeholder">Выберите возрастную категорию</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                        </div>
+                      </div>
+                      <hr>
+                      <h4>Контактная информация</h4>
+                      <div class="form-group" >
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="phone">Телефон<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="phone" name="phone" required="required" class="form-control col-md-7 col-xs-12" size="15" maxlength="15">
+                        </div>
+                      </div>
+                      <div class="form-group" >
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Электронная почта<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12" size="30" maxlength="150">
                         </div>
                       </div>
                       {{ csrf_field() }}
@@ -69,5 +114,9 @@
                   </div>
               @endif
                 <div class="clearfix"></div>
-            </div>
+
 @endsection
+<script>
+  var token = '{{ Session::token() }}';
+  var url = '{{ route('ajax.check_card_credentials') }}';
+</script>

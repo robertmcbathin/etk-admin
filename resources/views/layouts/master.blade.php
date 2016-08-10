@@ -356,5 +356,27 @@
       gauge.setTextField(document.getElementById("gauge-text"));
     </script>
     <!-- /gauge.js -->
+    <script>
+      $('#num').on('keyup', function(){
+        $.ajax({
+          method: 'POST',
+          url: url,
+          data: {serie: $('#serie').val(), 
+                 num: $('#num').val(), 
+                 _token: token}
+        })
+        .done(function(msg){
+          console.log(JSON.stringify(msg));
+          if ((msg['message']) == 'error'){
+            $('.card-group').removeClass('has-success');
+            $('.card-group').addClass('has-error');
+          };
+          if ((msg['message']) == 'success'){
+            $('.card-group').removeClass('has-error');
+            $('.card-group').addClass('has-success');
+          };
+        });
+      });
+    </script>
   </body>
 </html>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Card;
 use DB;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 
 class CardController extends Controller
@@ -127,4 +126,23 @@ class CardController extends Controller
         ]);
       }
     }
+
+    /* AJAX */
+    public function ajaxCheckCardCredentials(Request $request)
+    {
+      $serie = $request['serie'];
+      $num   = $request['num'];
+
+      $card = DB::table('cards')
+                ->where('serie', $serie)
+                ->where('num', $num)
+                ->first();
+      if ($card == NULL)
+        return response()->json(['message' => 'error'],200);
+      if ($card !== NULL)
+        return response()->json(['message' => 'success'],200);
+   //  else
+   //    return response()->json(['message' => 'fail'],200)
+    }
+    /*------*/
 }

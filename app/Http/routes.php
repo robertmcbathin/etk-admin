@@ -192,4 +192,17 @@ Route::group(['middleware' => ['auth']], function(){
 		'ProductController@postAddProduct',
 		'as' => 'shop.products.add.post'
 		]);	
+	/*----------------	
+    ----------------
+    ----------------
+	*/
+	/*AJAX
+	----------------	
+    ----------------
+    ----------------
+	*/
+	Route::post('/ajax/check_card_credentials', [ 'uses' =>
+		'CardController@ajaxCheckCardCredentials',
+		'as' => 'ajax.check_card_credentials'
+		]);
 });
