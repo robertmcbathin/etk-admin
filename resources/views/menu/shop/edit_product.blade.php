@@ -119,10 +119,11 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Статус</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="in_stock" value="{{ $product->in_stock }}">
-                          <option value="1">В наличии</option>
-                          <option value="2">На заказ</option>
-                          <option value="3">По закупке</option>
-                          <option value="4">Снято с продажи</option>
+                          <option value="0">Выберите статус товара (сейчас статус = {{$product->in_stock}})</option>
+                          <option value="1">В наличии (1)</option>
+                          <option value="2">На заказ (2)</option>
+                          <option value="3">По закупке (3)</option>
+                          <option value="4">Снято с продажи (4)</option>
                           </select><span class="select2 select2-container select2-container--default select2-container--above" dir="ltr" style="width: 551px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-labelledby="select2-ba1p-container"><span class="select2-selection__rendered" id="select2-ba1p-container"><span class="select2-selection__placeholder">Выберите статус</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
                         </div>
                       </div>
@@ -130,6 +131,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Приоритет</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="priority" value="{{ $product->priority }}">
+                          <option value="0">Выберите приоритет при просмотре в интернет-магазине ({{ $product->priority }})</option>
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
