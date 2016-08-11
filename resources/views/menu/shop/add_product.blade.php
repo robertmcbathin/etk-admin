@@ -175,5 +175,4 @@
                   </div>
               @endif 
                 <div class="clearfix"></div>
-            </div>
 @endsection

@@ -93,7 +93,7 @@ class CardController extends Controller
       /*VALIDATING INPUT*/
       $this->validate($request,[
         'card_serie' => 'required|min:2',
-        'card_number' => 'required|min:9'
+        'card_number' => 'required|min:6'
         ]);
       /*INIT VARIABLES*/
       $card_serie  = $request['card_serie'];
@@ -145,4 +145,18 @@ class CardController extends Controller
    //    return response()->json(['message' => 'fail'],200)
     }
     /*------*/
+    public function update()
+    {
+      $cards = DB::table('cards')
+                  ->where('serie', '40');
+      foreach ($cards as $card)
+      {
+        $oldnum = '' . $card['num'];
+        $new_num = (int)ltrim($oldnum, '140');
+        DB::table('cards')
+          ->where('num', $card['num'])
+          ->update(['num' => $new_num]);
+      }
+      return 'done';
+    }
 }

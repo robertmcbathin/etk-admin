@@ -58,6 +58,7 @@ $username = Auth::user()->username;
                       <li><a href="form_advanced.html">Закупки</a></li>
                       <li><a href="form_validation.html">Заказы</a></li>
                       <li><a href="form_wizards.html">Поставщики</a></li>
+                      <li><a href="{{ route('shop.manufacturers') }}">Производители</a></li>
                       <li><a href="form_upload.html"></a></li>
                       <li><a href="form_buttons.html">Form Buttons</a></li>
                     </ul>

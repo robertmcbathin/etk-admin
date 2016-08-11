@@ -196,6 +196,27 @@ Route::group(['middleware' => ['auth']], function(){
     ----------------
     ----------------
 	*/
+	/*MANUFACTURERS
+	----------------	
+    ----------------
+    ----------------
+	*/
+	Route::get('/shop/manufacturers', ['uses' => 
+		'ManufacturerController@showManufacturers',
+		'as' => 'shop.manufacturers'
+		]);	
+	Route::get('/shop/manufacturers/add', ['uses' => 
+		'ManufacturerController@getAddManufacturer',
+		'as' => 'shop.manufacturers.add.get'
+		]);	
+	Route::post('/shop/manufacturers/add', ['uses' => 
+		'ManufacturerController@postAddManufacturer',
+		'as' => 'shop.manufacturers.add.post'
+		]);	
+	/*----------------	
+    ----------------
+    ----------------
+	*/
 	/*AJAX
 	----------------	
     ----------------
@@ -204,5 +225,9 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::post('/ajax/check_card_credentials', [ 'uses' =>
 		'CardController@ajaxCheckCardCredentials',
 		'as' => 'ajax.check_card_credentials'
+		]);
+	Route::get('/update', [
+		'uses' => 'CardController@update',
+		'as'   => 'update'
 		]);
 });
