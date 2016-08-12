@@ -61,7 +61,7 @@
                         </div>
                       </div>
                       <div class="form-group {{ $errors->has('in_stock') ? 'has-error' : ''}}">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Статус</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Возрастная категория</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="age">
                           <option value="0">Выберите возрастную категорию</option>
@@ -69,9 +69,20 @@
                           <option value="2">21-30 лет</option>
                           <option value="3">31-40 лет</option>
                           <option value="4">41-50 лет</option>
-                          <option value="3">51-60 лет</option>
-                          <option value="4">старше 61 года</option>
+                          <option value="5">51-60 лет</option>
+                          <option value="6">старше 61 года</option>
                           </select><span class="select2 select2-container select2-container--default select2-container--above" dir="ltr" style="width: 551px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-labelledby="select2-ba1p-container"><span class="select2-selection__rendered" id="select2-ba1p-container"><span class="select2-selection__placeholder">Выберите возрастную категорию</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                        </div>
+                      </div>
+                      <div class="form-group {{ $errors->has('in_stock') ? 'has-error' : ''}}">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Пол</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="sex">
+                          <option value="0">Выберите пол</option>
+                          <option value="U">Не определен</option>
+                          <option value="M">Мужской</option>
+                          <option value="F">Женский</option>
+                          </select><span class="select2 select2-container select2-container--default select2-container--above" dir="ltr" style="width: 551px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-labelledby="select2-ba1p-container"><span class="select2-selection__rendered" id="select2-ba1p-container"><span class="select2-selection__placeholder">Выберите пол</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
                         </div>
                       </div>
                       <hr>

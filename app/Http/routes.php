@@ -21,6 +21,9 @@ Route::group(['middleware' => ['web']], function(){
     Route::get('/logout', 'EmployeeController@getLogOut');
 
 });
+Route::get('/date', [
+	'uses' => 'CardController@checkDate'
+	]);
 Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/settings/users', [
