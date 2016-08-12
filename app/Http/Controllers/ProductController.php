@@ -141,7 +141,11 @@ class ProductController extends Controller
                    ->where('id',$category_id)
                    ->update(['name' => $category_name
         ]))
-      {return view('menu.shop.edit_category',[
+      {
+        $category = DB::table('categories')
+                  ->where('id',$category_id)
+                  ->first();
+        return view('menu.shop.edit_category',[
         'category'   => $category,
         'alert_title' => 'Запись изменена',
         'alert_text'  => 'Название категории изменено',

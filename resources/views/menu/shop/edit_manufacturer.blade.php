@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-Изменение категории
+Изменение производителя
 @endsection
 @section('content')
   <div class="page-title">
@@ -14,20 +14,27 @@
             	<div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Изменение категории</h2>
+                    <h2>Изменение производителя</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/shop/categories/{{$category->id}}/edit" method="POST">
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/shop/manufacturers/{{$manufacturer->id}}/edit" method="POST">
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="serie">Название<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="category_name" name="category_name" required="required" class="form-control col-md-7 col-xs-12" size="50" maxlength="255" value="{{ $category->name }}">
+                          <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12" size="50" maxlength="255" value="{{ $manufacturer->name }}">
                         </div>
                       </div>
-                      <input type="hidden" value="{{ $category->id }}" name="category_id">
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Адрес<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="address" name="address" required="required" class="form-control col-md-7 col-xs-12" size="100" maxlength="255" placeholder="Город, улица, дом" value="{{ $manufacturer->address }}">
+                        </div>
+                      </div>
+                      <input type="hidden" value="{{ $manufacturer->id }}" name="id">
                       {{ csrf_field() }}
                       <div class="ln_solid"></div>
                       <div class="form-group">

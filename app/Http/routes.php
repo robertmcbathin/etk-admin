@@ -213,6 +213,18 @@ Route::group(['middleware' => ['auth']], function(){
 		'ManufacturerController@postAddManufacturer',
 		'as' => 'shop.manufacturers.add.post'
 		]);	
+	Route::get('/shop/manufacturers/{id}/edit', ['uses' => 
+		'ManufacturerController@getEditManufacturer',
+		'as' => 'shop.manufacturers.edit.get'
+		]);	
+	Route::post('/shop/manufacturers/{id}/edit', ['uses' => 
+		'ManufacturerController@postEditManufacturer',
+		'as' => 'shop.manufacturers.edit.post'
+		]);	
+	Route::get('/shop/manufacturers/{id}/delete', ['uses' => 
+		'ManufacturerController@postDeleteManufacturer',
+		'as' => 'shop.manufacturers.delete.post'
+		]);	
 	/*----------------	
     ----------------
     ----------------

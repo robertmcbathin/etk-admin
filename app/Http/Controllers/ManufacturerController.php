@@ -49,4 +49,62 @@ class ManufacturerController extends Controller
             'alert_type'    => 'success'
     		]);
     }
+    public function postDeleteManufacturer($id)
+    {
+        DB::table('manufacturers')->where('id',$id)->delete();
+        return redirect()->back();
+    }
+     public function getEditManufacturer($id)
+    {
+      $manufacturer = DB::table('manufacturers')
+              ->where('id', $id)
+              ->first();
+      return view('menu.shop.edit_manufacturer',[
+        'manufacturer' => $manufacturer,
+        'alert_title' => '',
+        'alert_type'    => ''
+        ]);
+    }
+    public function postEditManufacturer(Request $request)
+    {
+      /*VALIDATING INPUT*/
+      $this->validate($request,[
+        'name' => 'required'
+        ]);
+      /*INIT VARIABLES*/
+      $manufacturer_name  = $request['name'];
+      $manufacturer_id  = $request['id'];
+      $manufacturer_address = $request['address'];
+
+      /*CHECK CARD CREDENTIALS*/
+      $manufacturer = DB::table('manufacturers')
+                    ->where('name',$manufacturer_name)
+                    ->first();
+        if($manufacturer !== NULL)
+        {
+            return view('menu.shop.edit_manufacturer',[
+              'manufacturer'   => $manufacturer,
+              'alert_title' => 'Зачем сохранять то же название?!',
+              'alert_text'  => 'Название производителя не изменено',
+              'alert_type'    => 'alert-error'
+            ]);
+        }
+        /*----------------------*/
+
+      if (DB::table('manufacturers')
+                   ->where('id',$manufacturer_id)
+                   ->update(['name' => $manufacturer_name, 
+                             'address' => $manufacturer_address
+        ]))
+      {$manufacturer = DB::table('manufacturers')
+                  ->where('id',$manufacturer_id)
+                  ->first();
+        return view('menu.shop.edit_manufacturer',[
+        'manufacturer'   => $manufacturer,
+        'alert_title' => 'Запись изменена',
+        'alert_text'  => 'Название производителя изменено',
+        'alert_type'    => 'alert-success'
+        ]);
+      }
+    }
 }

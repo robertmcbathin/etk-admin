@@ -29,6 +29,7 @@
                           <tr class="headings">
                             <th class="column-title"># </th>
                             <th class="column-title">Название </th>
+                            <th class="column-title">Адрес </th>
                             <th class="column-title">Обновлена </th>
                             <th class="column-title">Создана </th>
                             <th class="column-title no-link last"><span class="nobr">Действие</span>
@@ -44,10 +45,11 @@
                          <tr>
                           <th scope="row">{{ $manufacturer->id }}</th>
                           <td>{{ $manufacturer->name }}</td>
+                          <td>{{ $manufacturer->address }}</td>
                           <td>{{ $manufacturer->updated_at }}</td>
                           <td>{{ $manufacturer->created_at }}</td>
-                          <td class=" last"><a href="/shop/categories/{{$manufacturer->id}}/delete" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                          <a href="/shop/categories/{{ $manufacturer->id }}/edit" class="btn btn-primary">
+                          <td class=" last"><a href="/shop/manufacturers/{{$manufacturer->id}}/delete" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                          <a href="/shop/manufacturers/{{ $manufacturer->id }}/edit" class="btn btn-primary">
                             <i class="fa fa-pencil"></i></a>
                             </td>
                         </tr>
