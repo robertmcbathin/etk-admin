@@ -158,6 +158,39 @@ Route::group(['middleware' => ['auth']], function(){
     ----------------
     ----------------
 	*/
+    /*BANNERS
+    ----------------	
+    ----------------
+    ----------------
+	*/
+    Route::get('/shop/banners', ['uses' => 
+		'BannerController@showBanners',
+		'as' => 'shop.banners'
+		]);	
+	Route::get('/shop/banners/add', ['uses' => 
+		'BannerController@getAddBanner',
+		'as' => 'shop.banners.add.get'
+		]);	
+	Route::post('/shop/banners/add', ['uses' => 
+		'BannerController@postAddBanner',
+		'as' => 'shop.banners.add.post'
+		]);	
+	Route::get('/shop/banners/{id}/edit', ['uses' => 
+		'BannerController@getEditBanner',
+		'as' => 'shop.banners.edit.get'
+		]);	
+	Route::post('/shop/banners/{id}/edit', ['uses' => 
+		'BannerController@postEditBanner',
+		'as' => 'shop.banners.edit.post'
+		]);	
+	Route::get('/shop/banners/{id}/delete', ['uses' => 
+		'BannerController@postDeleteBanner',
+		'as' => 'shop.banners.delete.post'
+		]);
+	/*----------------	
+    ----------------
+    ----------------
+	*/
 	/*PRODUCTS
 	----------------	
     ----------------

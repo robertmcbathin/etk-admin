@@ -13,3 +13,6 @@ a.site_title>span{
 .panel_toolbox>li>a:hover {
 	background-color: #337ab7;
 	}
+.panel_toolbox>li>a{
+	color: #fff;
+}
