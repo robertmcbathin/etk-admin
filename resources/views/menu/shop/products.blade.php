@@ -42,6 +42,7 @@
                       <th class="column-title">Цена (по карте)</th>
                       <th class="column-title">Наличие</th>
                       <th class="column-title">На складе</th>
+                      <th class="column-title">Приоритет</th>
                       <th class="column-title">Опубликовано</th>
                       <th class="column-title no-link last">
                         <span class="nobr">Действие</span>
@@ -82,6 +83,7 @@
                       <td>Снято с продажи</td>
                       @endif
                       <td>{{ $product->availability }}</td>
+                      <td>{{ $product->priority }}</td>
                       <td>
                          @if ($product->published == 1)
                           <i class="fa fa-circle" style="color:#00ff00"></i>
