@@ -31,14 +31,18 @@ class CardController extends Controller
                           ->orderBy('users.updated_at', 'desc')
                           ->get();
     	$active_cards_count = DB::table('activated_cards')
-    	                  ->where('is_active', '!=' , null)
+    	                  ->where('is_active', 1)
     	                  ->count();
+      $deactive_cards_count = DB::table('activated_cards')
+                        ->where('is_active', 2)
+                        ->count();
 
     	return view('menu.club.cards',[
     		'awaiting_cards' => $awaiting_cards,
     		'awaiting_cards_count' => $awaiting_cards_count,
     		'active_cards' => $active_cards,
-    		'active_cards_count' => $active_cards_count
+    		'active_cards_count' => $active_cards_count,
+        'deactive_cards_count' => $deactive_cards_count
     		]);
     }
     public function showCardActivationQueue()

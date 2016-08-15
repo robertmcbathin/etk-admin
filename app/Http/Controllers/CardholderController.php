@@ -195,8 +195,8 @@ class CardholderController extends Controller
         $cardholder = DB::table('users')->where('id',$cardholder_id)->first();
         DB::table('users')->where('id',$cardholder_id)->delete();
         DB::table('activated_cards')->where('id',$cardholder->card_id)->update(['is_active' => 0]);
-        return redirect()->back();
       });
+      return redirect()->route('club.cardholders.list');
     }
     public function getUnlockCardholder($cardholder_id)
     {
