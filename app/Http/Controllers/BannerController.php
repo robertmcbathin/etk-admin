@@ -103,7 +103,7 @@ class BannerController extends Controller
     {
       /*VALIDATING INPUT*/
       $this->validate($request,[
-        'name' => 'required',
+        'title' => 'required',
         'description' => 'required'
         ]);
       /*INIT VARIABLES*/
@@ -128,7 +128,7 @@ class BannerController extends Controller
                    ->update(['title' => $banner_title, 
                              'description' => $banner_description,
                              'path_to_img' => $path_to_img,
-                             'order'    => $order
+                             'order'    => $order,
                              'show_in' => $banner_show_in,
                              'updated_by' => $updated_by
         ]))
