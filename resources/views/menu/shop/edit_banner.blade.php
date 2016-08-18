@@ -19,7 +19,7 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/shop/banners/{{$banner->id}}/edit" method="POST">
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/shop/banners/{{$banner->id}}/edit" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Заголовок<span class="required">*</span>
                         </label>
@@ -34,7 +34,51 @@
                           <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" size=255 maxlength="255"  value="{{ $banner->description }}">
                         </div>
                       </div>
-                      <input type="hidden" value="{{ $manufacturer->id }}" name="id">
+                      <img src="{{ $banner->path_to_img }}" alt="" height="100">
+                      <div class="form-group {{ $errors->has('path_to_img') ? 'has-error' : ''}}">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="path_to_img">Изображение (путь к нему) 
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" id="path_to_img" name="path_to_img" class="form-control col-md-7 col-xs-12" size="100" maxlength="255" placeholder="http://path.to/img.jpg" value="{{ $banner->path_to_img }}">
+                        </div><br>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="image">Или загрузите файл 
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="file" id="image" name="image" class="form-control col-md-7 col-xs-12" size="100" maxlength="255" >
+                        </div>
+                      </div>
+
+                      <div class="form-group {{ $errors->has('show_in') ? 'has-error' : ''}}">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="subcategory_id">Показывать в разделе</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="show_in">
+                              <option value="{{ $banner->show_in }}">Выберите раздел для показа баннера ({{ $banner->show_in }}) </option>
+                              <option value="0">Не показывать вообще (0)</option>
+                              <option value="1">Интернет-магазин (1)</option>
+                              <option value="2">Совместные покупки (2)</option>
+                          </select><span class="select2 select2-container select2-container--default select2-container--above" dir="ltr" style="width: 551px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-labelledby="select2-ba1p-container"><span class="select2-selection__rendered" id="select2-ba1p-container"><span class="select2-selection__placeholder">Выберите раздел для показа</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                        </div>
+                      </div>
+
+                      <div class="form-group {{ $errors->has('order') ? 'has-error' : ''}}">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Приоритет показа</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="order">
+                          <option value="{{ $banner->order }}">Сейчас {{ $banner->order }}</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="1">5</option>
+                          <option value="2">6</option>
+                          <option value="3">7</option>
+                          <option value="4">8</option>
+                          </select><span class="select2 select2-container select2-container--default select2-container--above" dir="ltr" style="width: 551px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-labelledby="select2-ba1p-container"><span class="select2-selection__rendered" id="select2-ba1p-container"><span class="select2-selection__placeholder">Выберите приоритет</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                        </div>
+                      </div>
+
+                      <input type="hidden" value="{{ $banner->id }}" name="id">
+                      <input type="hidden" name="updated_by" value="{{ Auth::user()->id }}">
                       {{ csrf_field() }}
                       <div class="ln_solid"></div>
                       <div class="form-group">

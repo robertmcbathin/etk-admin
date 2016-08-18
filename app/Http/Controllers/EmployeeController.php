@@ -21,14 +21,20 @@ class EmployeeController extends Controller
     	                           ->where('activation_token', '!=' , null)
     	                           ->count();
     	$active_cards_count = DB::table('activated_cards')
-    	                           ->where('is_active', '!=' , null)
+    	                           ->where('is_active', 1)
     	                           ->count();
+        $deactive_cards_count = DB::table('activated_cards')
+                        ->where('is_active', 2)
+                        ->count();
 		$user = Auth::user();
 		return view('dashboard',
 			['user' => $user,
 			 'card_count' => $card_count,
 			 'awaiting_cards_count' => $awaiting_cards_count,
-			 'active_cards_count' => $active_cards_count]);
+			 'active_cards_count' => $active_cards_count,
+             'deactive_cards_count' => $deactive_cards_count
+
+             ]);
 	}
 	public function getUserList()
 	{

@@ -49,7 +49,7 @@
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="subcategory_id" value="{{ $product->subcategory_id }}">
                           @if ($subcategories !== NULL)
-                             <option value="0">Выберите категорию (по умолчанию {{$product->subcategory_id}})</option>
+                             <option value="{{$product->subcategory_id}}">Выберите категорию (по умолчанию {{$product->subcategory_id}})</option>
                             @foreach ($subcategories as $subcategory)
                               <option value="{{$subcategory->id}}">{{ $subcategory->name }} ({{$subcategory->id}})</option>
                             @endforeach
@@ -119,7 +119,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Статус</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="in_stock" value="{{ $product->in_stock }}">
-                          <option value="0">Выберите статус товара (сейчас статус = {{$product->in_stock}})</option>
+                          <option value="{{$product->in_stock}}">Выберите статус товара (сейчас статус = {{$product->in_stock}})</option>
                           <option value="1">В наличии (1)</option>
                           <option value="2">На заказ (2)</option>
                           <option value="3">По закупке (3)</option>
@@ -131,7 +131,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Приоритет</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="priority" value="{{ $product->priority }}">
-                          <option value="0">Выберите приоритет при просмотре в интернет-магазине ({{ $product->priority }})</option>
+                          <option value="{{ $product->priority }}">Выберите приоритет при просмотре в интернет-магазине ({{ $product->priority }})</option>
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>

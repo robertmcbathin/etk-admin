@@ -12,8 +12,20 @@ class BannerController extends Controller
 {
     public function showBanners()
     {
-    	$banners = DB::table('banners')
-    	              ->get();
+      $banners = DB::table('banners')
+                  ->join('sections','banners.show_in', '=','sections.id')
+                  ->join('employees','banners.created_by', '=','employees.id')
+                  ->select('banners.id', 
+                           'banners.title',
+                           'banners.description',
+                           'banners.path_to_img', 
+                           'sections.title as show_in',
+                           'banners.order',
+                           'banners.created_at',
+                           'banners.updated_at',
+                           'employees.username as created_by',
+                           'employees.username as updated_by')
+                          ->get();
     	return view('menu.shop.banners',[
     		'banners' => $banners
     		]);
@@ -87,46 +99,39 @@ class BannerController extends Controller
         'alert_type'    => ''
         ]);
     }
-    public function postEditManufacturer(Request $request)
+    public function postEditBanner(Request $request)
     {
       /*VALIDATING INPUT*/
       $this->validate($request,[
-        'name' => 'required'
+        'name' => 'required',
+        'description' => 'required'
         ]);
       /*INIT VARIABLES*/
-      $manufacturer_name  = $request['name'];
-      $manufacturer_id  = $request['id'];
-      $manufacturer_address = $request['address'];
+      $banner_title        = $request['title'];
+      $banner_description  = $request['description'];
+      $banner_id           = $request['id'];
+      $path_to_img         = $request['path_to_img'];
+      $order               = $request['order'];
 
-      /*CHECK CARD CREDENTIALS*/
-      $manufacturer = DB::table('manufacturers')
-                    ->where('name',$manufacturer_name)
-                    ->first();
-        if($manufacturer !== NULL)
-        {
-            return view('menu.shop.edit_manufacturer',[
-              'manufacturer'   => $manufacturer,
-              'alert_title' => 'Зачем сохранять то же название?!',
-              'alert_text'  => 'Название производителя не изменено',
-              'alert_type'    => 'alert-error'
-            ]);
-        }
-        /*----------------------*/
-
-      if (DB::table('manufacturers')
-                   ->where('id',$manufacturer_id)
-                   ->update(['name' => $manufacturer_name, 
-                             'address' => $manufacturer_address
-        ]))
-      {$manufacturer = DB::table('manufacturers')
-                  ->where('id',$manufacturer_id)
-                  ->first();
-        return view('menu.shop.edit_manufacturer',[
-        'manufacturer'   => $manufacturer,
-        'alert_title' => 'Запись изменена',
-        'alert_text'  => 'Название производителя изменено',
-        'alert_type'    => 'alert-success'
-        ]);
+      $image = $request->file('image');
+      $imagename = 'banners/' . $this->str2url($request['title']) . '.jpg';
+      if ($image){
+        Storage::disk('public')->put($imagename, File::get($image));
+        $path_to_img = 'http://etk-admin.ru/src/images/' . $imagename;
       }
+      $banner_show_in = $request['show_in'];
+      $updated_by = $request['updated_by'];
+      /*CHECK CARD CREDENTIALS*/
+
+      if (DB::table('banners')
+                   ->where('id',$banner_id)
+                   ->update(['title' => $banner_title, 
+                             'description' => $banner_description,
+                             'path_to_img' => $path_to_img,
+                             'order'    => $order
+                             'show_in' => $banner_show_in,
+                             'updated_by' => $updated_by
+        ]))
+      return redirect()->back();
     }
 }
