@@ -111,7 +111,12 @@ class ProductController extends Controller
                           ->get();
       $subсategories = DB::table('subcategories')
       					  ->join('categories','subcategories.category_id', '=','categories.id')
-      					  ->select('subcategories.id', 'subcategories.name','categories.name as category_name','subcategories.updated_at','subcategories.created_at')
+      					  ->select('subcategories.id', 
+                    'subcategories.name',
+                    'categories.name as category_name',
+                    'subcategories.updated_at',
+                    'subcategories.created_at',
+                    'subcategories.is_show')
                           ->get();
 
       return view('menu.shop.categories',[
@@ -123,6 +128,20 @@ class ProductController extends Controller
     {
     	DB::table('categories')->where('id',$id)->delete();
     	return redirect()->back();
+    }
+    public function getUnlockCategory($id)
+    {
+      DB::table('categories')
+                ->where('id', $id)
+                ->update(['is_show' => 1]);
+      return redirect()->back();
+    }
+    public function getLockCategory($id)
+    {
+      DB::table('categories')
+                ->where('id', $id)
+                ->update(['is_show' => 0]);
+      return redirect()->back();
     }
   /*---------------SUBCATEGORIES----------------*/
   	public function getAddSubCategory()
@@ -229,7 +248,20 @@ class ProductController extends Controller
     	DB::table('subcategories')->where('id',$id)->delete();
     	return redirect()->back();
     }
-
+    public function getUnlockSubCategory($id)
+    {
+      DB::table('subcategories')
+                ->where('id', $id)
+                ->update(['is_show' => 1]);
+      return redirect()->back();
+    }
+    public function getLockSubCategory($id)
+    {
+      DB::table('subcategories')
+                ->where('id', $id)
+                ->update(['is_show' => 0]);
+      return redirect()->back();
+    }
      /*---------------PRODUCTS----------------*/
 
     public function showProducts()

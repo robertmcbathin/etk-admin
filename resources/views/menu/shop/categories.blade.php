@@ -33,6 +33,7 @@
                             <th class="column-title">Название </th>
                             <th class="column-title">Обновлена </th>
                             <th class="column-title">Создана </th>
+                            <th class="column-title">Активна для отображения </th>
                             <th class="column-title no-link last"><span class="nobr">Действие</span>
                             </th>
                             <th class="bulk-actions" colspan="7">
@@ -48,9 +49,29 @@
                           <td>{{ $category->name }}</td>
                           <td>{{ $category->updated_at }}</td>
                           <td>{{ $category->created_at }}</td>
+                          <td>
+                         @if ($category->is_show == 1)
+                          <i class="fa fa-circle" style="color:#00ff00"></i>
+                        @endif
+                         @if ($category->is_show == 0)
+                          <i class="fa fa-circle" style="color:#ff0000"></i>
+                        @endif
+                      </td>
                           <td class=" last"><a href="/shop/categories/{{$category->id}}/delete" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                           <a href="/shop/categories/{{ $category->id }}/edit" class="btn btn-primary">
                           <i class="fa fa-pencil"></i>
+                          @if ($category->is_show == 1)
+                        <a href="/shop/categories/{{$category->
+                          id}}/lock" class="btn btn-primary">
+                          <i class="fa fa-lock"></i>
+                        </a>
+                        @endif
+                        @if ($category->is_show == 0)
+                        <a href="/shop/categories/{{$category->
+                          id}}/unlock" class="btn btn-primary">
+                          <i class="fa fa-unlock"></i>
+                        </a>
+                        @endif
                             </td>
                         </tr>
                         @endforeach
@@ -78,6 +99,7 @@
                             <th class="column-title">Категория </th>
                             <th class="column-title">Обновлена </th>
                             <th class="column-title">Создана </th>
+                            <th class="column-title">Активна для отображения </th>
                             <th class="column-title no-link last"><span class="nobr">Действие</span>
                             </th>
                             <th class="bulk-actions" colspan="7">
@@ -94,9 +116,29 @@
                           <td>{{ $subcategory->category_name }}</td>
                           <td>{{ $subcategory->updated_at }}</td>
                           <td>{{ $subcategory->created_at }}</td>
+                           <td>
+                         @if ($subcategory->is_show == 1)
+                          <i class="fa fa-circle" style="color:#00ff00"></i>
+                        @endif
+                         @if ($subcategory->is_show == 0)
+                          <i class="fa fa-circle" style="color:#ff0000"></i>
+                        @endif
+                      </td>
                           <td class=" last"><a href="/shop/categories/subcategory/{{$subcategory->id}}/delete" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                         <a href="/shop/categories/subcategory/{{ $subcategory->id }}/edit" class="btn btn-primary">
                           <i class="fa fa-pencil"></i>
+                          @if ($subcategory->is_show == 1)
+                        <a href="/shop/categories/subcategory/{{$subcategory->
+                          id}}/lock" class="btn btn-primary">
+                          <i class="fa fa-lock"></i>
+                        </a>
+                        @endif
+                        @if ($subcategory->is_show == 0)
+                        <a href="/shop/categories/subcategory/{{$subcategory->
+                          id}}/unlock" class="btn btn-primary">
+                          <i class="fa fa-unlock"></i>
+                        </a>
+                        @endif
                             </td>
                         </tr>
                         @endforeach

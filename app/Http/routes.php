@@ -129,6 +129,14 @@ Route::group(['middleware' => ['auth']], function(){
 		'ProductController@postDeleteCategory',
 		'as' => 'shop.categories.delete.post'
 		]);	
+	Route::get('/shop/categories/{id}/unlock', ['uses' => 
+		'ProductController@getUnlockCategory',
+		'as' => 'club.categories.unlock.get'
+		]);	
+	Route::get('/shop/categories/{id}/lock', ['uses' => 
+		'ProductController@getLockCategory',
+		'as' => 'club.categories.lock.get'
+		]);
 	/*SUBCATEGORIES
     ----------------	
     ----------------
@@ -153,6 +161,14 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/shop/categories/subcategory/{id}/delete', ['uses' => 
 		'ProductController@postDeleteSubCategory',
 		'as' => 'shop.categories.subcategory.delete.post'
+		]);
+	Route::get('/shop/categories/subcategory/{id}/unlock', ['uses' => 
+		'ProductController@getUnlockSubCategory',
+		'as' => 'club.categories.unlock.get'
+		]);	
+	Route::get('/shop/categories/subcategory/{id}/lock', ['uses' => 
+		'ProductController@getLockSubCategory',
+		'as' => 'club.categories.lock.get'
 		]);
 	/*----------------	
     ----------------
