@@ -53,7 +53,7 @@
                           <td>{{ $banner->updated_by }}</td>
                           <td class=" last"><a href="/shop/banners/{{$banner->id}}/delete" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                           <a href="/shop/banners/{{ $banner->id }}/edit" class="btn btn-primary">
-                          <i class="fa fa-pencil"></i>
+                            <i class="fa fa-pencil"></i></a>
                             </td>
                         </tr>
                         @endforeach
@@ -63,12 +63,4 @@
                     </div>
                   </div>
           </div>
-
-                </div>
-
-            <div class="clearfix"></div>
-
-            <div class="row"></div>
-                <div class="clearfix"></div>
-            </div>
 @endsection

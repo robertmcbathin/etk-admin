@@ -49,6 +49,7 @@
         <!-- /footer content -->
       </div>
     </div>
+  </div>
 
     <!-- jQuery -->
     <script src="{{ URL::to('src/vendors/jquery/dist/jquery.min.js')}}"></script>
