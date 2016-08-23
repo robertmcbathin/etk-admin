@@ -21,7 +21,8 @@ class UserController extends Controller
                    	        'callbacks.phone as phone',
                    	        'callbacks.created_at',
                    	        'callbacks.processing_by',
-                   	        'callbacks.closed_by'
+                   	        'callbacks.closed_by',
+                            'callbacks.comment'
                    	        )
                    ->orderBy('created_at', 'desc')
                    ->get();

@@ -310,6 +310,12 @@ Route::group(['middleware' => ['auth']], function(){
 		'OrderController@postDeleteOrder',
 		'as' => 'shop.orders.delete.post'
 		]);	
+
+	Route::get('/shop/orders/change-status/{order_id}/{status_id}/change', ['uses' => 
+		'OrderController@getChangeOrderStatus',
+		'as' => 'shop.orders.change-status.get'
+		]);	
+	
 	/*----------------	
     ----------------
     ----------------
@@ -347,5 +353,10 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/update', [
 		'uses' => 'CardController@update',
 		'as'   => 'update'
+		]);
+ /*MODALS*/
+	Route::post('/modals/leave-callback-comment/{callback_id}/{user_id}', [ 'uses' =>
+		'ModalController@postLeaveCallbackComment',
+		'as' => 'modals.leave-callback-comment.post'
 		]);
 });
