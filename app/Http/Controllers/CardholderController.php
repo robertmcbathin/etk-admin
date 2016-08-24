@@ -115,7 +115,7 @@ class CardholderController extends Controller
         $password_to_send = $this->generatePassword();
         $password         = bcrypt($password_to_send);
         /*-------------------*/
-        DB::transaction(function() use ($card_serie, $card_number,$first_name,$second_name, $third_name, $email,$phone,$sex,$dob,$password){
+        DB::transaction(function() use ($card_serie, $card_number,$first_name,$second_name, $third_name, $email,$phone,$sex,$age,$password){
   
           $preactive_card_id = DB::table('activated_cards')->insertGetId([
               'serie' => $card_serie, 
