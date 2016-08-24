@@ -60,6 +60,10 @@ $username = Auth::user()->username;
                       <li><a href="form_wizards.html">Поставщики</a></li>
                       <li><a href="{{ route('shop.manufacturers') }}">Производители</a></li>
                       <li><a href="{{ route('shop.banners') }}">Баннеры</a></li>
+                      <li><a href="{{ route('shop.callbacks.show') }}">Обратные звонки <span class="badge">{{$unanswered_callbacks_count}}</span></a>
+                      </li>
+                      <li><a href="{{ route('shop.orders') }}">Заказы <span class="badge">{{$new_orders_count}}</span></a>
+                      </li>
                       <li><a href="form_upload.html"></a></li>
                       <li><a href="form_buttons.html">Form Buttons</a></li>
                     </ul>

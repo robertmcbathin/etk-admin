@@ -33,7 +33,6 @@ class EmployeeController extends Controller
 			 'awaiting_cards_count' => $awaiting_cards_count,
 			 'active_cards_count' => $active_cards_count,
              'deactive_cards_count' => $deactive_cards_count
-
              ]);
 	}
 	public function getUserList()

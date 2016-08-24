@@ -281,6 +281,66 @@ Route::group(['middleware' => ['auth']], function(){
     ----------------
     ----------------
 	*/
+/*ORDERS
+	----------------	
+    ----------------
+    ----------------
+	*/
+	Route::get('/shop/orders', ['uses' => 
+		'OrderController@showOrders',
+		'as' => 'shop.orders'
+		]);	
+	Route::get('/shop/orders/add', ['uses' => 
+		'OrderController@getAddOrder',
+		'as' => 'shop.orders.add.get'
+		]);	
+	Route::post('/shop/orders/add', ['uses' => 
+		'OrderController@postAddOrder',
+		'as' => 'shop.orders.add.post'
+		]);	
+	Route::get('/shop/orders/{id}/edit', ['uses' => 
+		'OrderController@getEditOrder',
+		'as' => 'shop.orders.edit.get'
+		]);	
+	Route::post('/shop/orders/{id}/edit', ['uses' => 
+		'OrderController@postEditOrder',
+		'as' => 'shop.orders.edit.post'
+		]);	
+	Route::get('/shop/orders/{id}/delete', ['uses' => 
+		'OrderController@postDeleteOrder',
+		'as' => 'shop.orders.delete.post'
+		]);	
+
+	Route::get('/shop/orders/change-status/{order_id}/{status_id}/change', ['uses' => 
+		'OrderController@getChangeOrderStatus',
+		'as' => 'shop.orders.change-status.get'
+		]);	
+	
+	/*----------------	
+    ----------------
+    ----------------
+	*/
+	/*CALLBACKS
+	----------------	
+    ----------------
+    ----------------
+	*/
+	Route::get('/shop/callbacks', ['uses' => 
+		'UserController@showCallbacks',
+		'as' => 'shop.callbacks.show'
+		]);	
+	Route::get('/shop/callbacks/{id}/{user_id}/process', ['uses' => 
+		'UserController@getProcessCallback',
+		'as' => 'shop.callbacks.process.get'
+		]);	
+	Route::get('/shop/callbacks/{id}/{user_id}/done', ['uses' => 
+		'UserController@getDoneCallback',
+		'as' => 'shop.callbacks.done.get'
+		]);	
+	/*----------------	
+    ----------------
+    ----------------
+	*/
 	/*AJAX
 	----------------	
     ----------------
@@ -293,5 +353,10 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/update', [
 		'uses' => 'CardController@update',
 		'as'   => 'update'
+		]);
+ /*MODALS*/
+	Route::post('/modals/leave-callback-comment/{callback_id}/{user_id}', [ 'uses' =>
+		'ModalController@postLeaveCallbackComment',
+		'as' => 'modals.leave-callback-comment.post'
 		]);
 });
