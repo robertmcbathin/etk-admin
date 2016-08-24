@@ -26,14 +26,14 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="serie">Серия<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="serie" name="card_serie" required="required" class="form-control col-md-7 col-xs-12" size="3" maxlength="3">
+                          <input type="text" id="serie" name="card_serie" required="required" class="form-control col-md-7 col-xs-12" size="3" maxlength="3" {{ old('card_serie') }}>
                         </div>
                       </div>
                       <div class="form-group card-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="num">Номер<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="num" name="card_number" required="required" class="form-control col-md-7 col-xs-12" size="9" maxlength="15">
+                          <input type="text" id="num" name="card_number" required="required" class="form-control col-md-7 col-xs-12" size="9" maxlength="15" {{ old('card_number') }}>
                         </div>
                       </div>
                       <hr>
@@ -43,34 +43,35 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="second_name">Фамилия<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="second_name" name="second_name" required="required" class="form-control col-md-7 col-xs-12" size="20" maxlength="50">
+                          <input type="text" id="second_name" name="second_name" required="required" class="form-control col-md-7 col-xs-12" size="20" maxlength="50" {{ old('second_name') }}>
                         </div>
                       </div>
                       <div class="form-group" >
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first_name">Имя<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="first_name" name="first_name" required="required" class="form-control col-md-7 col-xs-12" size="20" maxlength="50">
+                          <input type="text" id="first_name" name="first_name" required="required" class="form-control col-md-7 col-xs-12" size="20" maxlength="50" {{ old('first_name') }}>
                         </div>
                       </div>
                       <div class="form-group" >
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="third_name">Отчество<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="third_name" name="third_name" required="required" class="form-control col-md-7 col-xs-12" size="20" maxlength="50">
+                          <input type="text" id="third_name" name="third_name" required="required" class="form-control col-md-7 col-xs-12" size="20" maxlength="50" {{ old('third_name') }}>
                         </div>
                       </div>
                       <div class="form-group {{ $errors->has('in_stock') ? 'has-error' : ''}}">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Дата рождения</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="date" name="age" id="age" class="form-control col-md-7 col-xs-12">
+                          <input type="date" name="age" id="age" class="form-control col-md-7 col-xs-12" value="{{ old('age') }}">
                         </div>
                       </div>
                       <div class="form-group {{ $errors->has('in_stock') ? 'has-error' : ''}}">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Пол</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="sex">
-                          <option value="U">Не определен</option>
+                          <option value="{{ old('sex') }}">Выберите пол:</option>
+                          <option value="U" >Не определен</option>
                           <option value="M">Мужской</option>
                           <option value="F">Женский</option>
                           </select><span class="select2 select2-container select2-container--default select2-container--above" dir="ltr" style="width: 551px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-labelledby="select2-ba1p-container"><span class="select2-selection__rendered" id="select2-ba1p-container"><span class="select2-selection__placeholder">Выберите пол</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
@@ -82,11 +83,11 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="phone">Телефон<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="phone" name="phone" required="required" class="form-control col-md-7 col-xs-12" size="15" maxlength="15">
+                          <input type="text" id="phone" name="phone" required="required" class="form-control col-md-7 col-xs-12" size="15" maxlength="15" {{ old('phone') }}>
                         </div>
                       </div>
                       <div class="form-group" >
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Электронная почта<span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Электронная почта<span class="required" {{ old('email') }}>*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="email" id="email" name="email" class="form-control col-md-7 col-xs-12" size="30" maxlength="150">
