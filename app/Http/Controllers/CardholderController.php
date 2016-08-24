@@ -132,7 +132,7 @@ class CardholderController extends Controller
               'email' => $email,
               'phone' => $phone,
               'sex' => $sex,
-              'dob' => $dob,
+              'dob' => $age,
               'password' => $password,
               'card_id' => $preactive_card_id,
               'is_active' => 1
