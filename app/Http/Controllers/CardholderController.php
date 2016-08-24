@@ -111,36 +111,6 @@ class CardholderController extends Controller
         }
         /*-----------*/
         /*---------------*/
-
-        /*CONVERT THE AGE*/
-        $current_date = date('Y-m-d');
-        switch ($age){
-            case 1:
-            $diff = 60*60*24*365*14;
-            $dob = date('Y-m-d', strtotime($current_date) - $diff);
-            break;
-            case 2:
-            $diff = 60*60*24*365*21;
-            $dob = date('Y-m-d', strtotime($current_date) - $diff);
-            break;
-            case 3:
-            $diff = 60*60*24*365*31;
-            $dob = date('Y-m-d', strtotime($current_date) - $diff);
-            break;
-            case 4:
-            $diff = 60*60*24*365*41;
-            $dob = date('Y-m-d', strtotime($current_date) - $diff);
-            break;
-            case 5:
-            $diff = 60*60*24*365*51;
-            $dob = date('Y-m-d', strtotime($current_date) - $diff);
-            break;
-            case 6:
-            $diff = 60*60*24*365*61;
-            $dob = date('Y-m-d', strtotime($current_date) - $diff);
-            break;
-        }
-        /*---------------*/
         /*GENERATING PASSWORD*/
         $password_to_send = $this->generatePassword();
         $password         = bcrypt($password_to_send);
@@ -174,7 +144,8 @@ class CardholderController extends Controller
         });
         $user_id = $this->user->id;
         $email   =$this->user->email;
-        if(Mail::send('emails.email_confirmed',
+        if ($email !== null){
+          if(Mail::send('emails.email_confirmed',
                       ['user_id' => $user_id,
                        'email' => $email,
                        'password' => $password_to_send],
@@ -188,6 +159,24 @@ class CardholderController extends Controller
             'alert_text'  => 'Пользователь успешно добавлен',
             'alert_type'    => 'alert-success'
             ]);
+        } else {
+          $email = 'passwords@etk-club.ru';
+          if(Mail::send('emails.email_confirmed',
+                      ['user_id' => $user_id,
+                       'email' => $email,
+                       'password' => $password_to_send],
+                       function ($m) use ($email){
+                $m->from('activation@etk-club.ru', 'ЕТК-Клуб');
+                $m->to($email)->subject('Успешная активация аккаунта в программе "ЕТК-Клуб"');
+                })
+          )
+        return view('menu.club.cardholders.add',[
+            'alert_title' => 'Пользователь добавлен',
+            'alert_text'  => 'Пользователь успешно добавлен',
+            'alert_type'    => 'alert-success'
+            ]);
+        }
+
     }
     public function getDeleteCardholder($cardholder_id)
     {
