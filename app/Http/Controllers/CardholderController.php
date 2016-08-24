@@ -86,6 +86,7 @@ class CardholderController extends Controller
         }
         /*-----------------------*/
         /*CHECK EMAIL*/
+        if ($email !== ''){
         $request_email = DB::table('users')
                 ->where('email', $email)
                 ->first();
@@ -96,6 +97,7 @@ class CardholderController extends Controller
               'alert_text'  => 'Пользователь не добавлен',
               'alert_type'    => 'alert-error'
             ]);
+        }
         }
         /*-----------*/
         $request_phone = DB::table('users')
@@ -144,7 +146,7 @@ class CardholderController extends Controller
         });
         $user_id = $this->user->id;
         $email   =$this->user->email;
-        if ($email !== null){
+        if ($email !== ''){
           if(Mail::send('emails.email_confirmed',
                       ['user_id' => $user_id,
                        'email' => $email,
