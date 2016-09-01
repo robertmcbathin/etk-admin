@@ -56,10 +56,12 @@ class CardholderController extends Controller
         'card_serie' => 'required|min:2',
         'card_number' => 'required|min:6',
         'second_name' => 'required|max:50',
-        'first_name' => 'required|max:50',
-        'phone'      => 'required'
+        'first_name' => 'required|max:50'
         ]);
         /*INIT VARIABLES*/
+        $phone = '';
+        $email = '';
+        
         $card_serie = $request['card_serie'];
         $card_number = $request['card_number'];
         $second_name = $request['second_name'];
