@@ -64,8 +64,6 @@ $username = Auth::user()->username;
                       </li>
                       <li><a href="{{ route('shop.orders') }}">Заказы <span class="badge">{{$new_orders_count}}</span></a>
                       </li>
-                      <li><a href="form_upload.html"></a></li>
-                      <li><a href="form_buttons.html">Form Buttons</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-credit-card-alt"></i> etk21.ru <span class="fa fa-chevron-down"></span></a>

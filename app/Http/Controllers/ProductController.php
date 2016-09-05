@@ -363,6 +363,8 @@ class ProductController extends Controller
       $in_stock               = $request['in_stock'];
       $availability           = $request['availability'];
       $priority               = $request['priority'];
+      $keywords               = $request['keywords'];
+      $description            = $request['description'];
       
       $image = $request->file('image');
       $imagename = 'products/' . $this->str2url($request['name']) . '.jpg';
@@ -400,7 +402,9 @@ class ProductController extends Controller
           'path_to_img' => $path_to_img,
           'in_stock' => $in_stock,
           'availability' => $availability,
-          'priority'               => $priority
+          'priority'               => $priority,
+          'keywords'               => $keywords,
+        'description'            => $description
           ]);
         /*----------------------*/
       return redirect()->back();
@@ -445,6 +449,8 @@ class ProductController extends Controller
       $price_by_purchase_card = $request['price_by_purchase_card'];
       $path_to_img            = $request['path_to_img'];
       $in_stock               = $request['in_stock'];
+      $keywords               = $request['keywords'];
+      $description            = $request['description'];
       $availability           = $request['availability'];
       $priority               = $request['priority'];
       
@@ -487,7 +493,9 @@ class ProductController extends Controller
         'availability'           => $availability,
         'published'              => $published,
         'subcategory_id'         => $subcategory_id,
-        'priority'               => $priority
+        'priority'               => $priority,
+        'keywords'               => $keywords,
+        'description'            => $description
         ]))   
       {return view('menu.shop.add_product',[
         'alert_title' => 'Запись добавлена',

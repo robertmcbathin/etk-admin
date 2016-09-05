@@ -44,6 +44,22 @@
                           <textarea class="form-control" rows="5" placeholder="" name="long_description">{{ $product->long_description }}</textarea>
                         </div>
                       </div>
+                       <hr>
+                        <div class="form-group {{ $errors->has('keywords') ? 'has-error' : ''}}">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="keywords">Ключевые слова
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="keywords" name="keywords" class="form-control col-md-7 col-xs-12" size="200" maxlength="255" value="{{ $product->keywords }}">
+                        </div>
+                      </div>
+                      <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Описание
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="description" name="description" class="form-control col-md-7 col-xs-12" size="200" maxlength="255" value="{{ $product->description }}">
+                        </div>
+                      </div>
+                      <hr>
                        <div class="form-group {{ $errors->has('subcategory_id') ? 'has-error' : ''}}">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="subcategory_id">Подкатегория</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
