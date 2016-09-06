@@ -287,9 +287,17 @@ Route::group(['middleware' => ['auth']], function(){
     ----------------
 	*/
 	Route::get('/shop/orders', ['uses' => 
-		'OrderController@showOrders',
+		'OrderController@showOrdersList',
 		'as' => 'shop.orders'
 		]);	
+	Route::get('/shop/new-orders', ['uses' => 
+		'OrderController@showNewOrders',
+		'as' => 'shop.new_orders'
+		]);	
+	Route::get('/shop/fast-orders', ['uses' => 
+		'OrderController@showFastOrders',
+		'as' => 'shop.fast_orders'
+		]);
 	Route::get('/shop/orders/add', ['uses' => 
 		'OrderController@getAddOrder',
 		'as' => 'shop.orders.add.get'

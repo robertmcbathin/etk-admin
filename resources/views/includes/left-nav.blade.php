@@ -62,7 +62,17 @@ $username = Auth::user()->username;
                       <li><a href="{{ route('shop.banners') }}">Баннеры</a></li>
                       <li><a href="{{ route('shop.callbacks.show') }}">Обратные звонки <span class="badge">{{$unanswered_callbacks_count}}</span></a>
                       </li>
-                      <li><a href="{{ route('shop.orders') }}">Заказы <span class="badge">{{$new_orders_count}}</span></a>
+                      <li><a>Заказы <span class="badge">{{$new_orders_count}}</span><span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="{{ route('shop.new_orders') }}">Новые <span class="badge">{{$new_orders_count}}</span></a>
+                        </li>
+                        <li class="sub_menu"><a href="{{ route('shop.fast_orders') }}">Быстрые <span class="badge">{{$new_orders_count}}</span></a>
+                        </li>
+                        <li><a href="{{ route('shop.orders') }}">Список</a>
+                        </li>
+                        <li class="sub_menu"><a href="{{ route('club.cards.add.get') }}">Добавить</a>
+                        </li>
+                      </ul>
                       </li>
                     </ul>
                   </li>
