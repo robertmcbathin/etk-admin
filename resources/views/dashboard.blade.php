@@ -20,6 +20,18 @@ ETK-Admin
               <span class="count_top"><i class="fa fa-credit-card"></i> Деактивировано</span>
               <div class="count green">{{ $deactive_cards_count }}</div>
             </div>
-          </div>
+</div>
+<div class="row tile_count">
+  <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-shopping-bag"></i>
+                          </div>
+                          <div class="count">{{ $new_order_count }}</div>
+
+                          <h3>Новые заказы</h3>
+                          <p>Необходимо обработать {{ $new_order_count }} новых заказов</p>
+                        </div>
+                      </div>
+</div>
 <?php var_dump($user) ?>
 @endsection

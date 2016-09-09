@@ -358,6 +358,10 @@ Route::group(['middleware' => ['auth']], function(){
 		'CardController@ajaxCheckCardCredentials',
 		'as' => 'ajax.check_card_credentials'
 		]);
+	Route::post('/ajax/check_new_orders', [ 'uses' =>
+		'OrderController@ajaxCheckNewOrders',
+		'as' => 'ajax.check_new_orders'
+		]);
 	Route::get('/update', [
 		'uses' => 'CardController@update',
 		'as'   => 'update'

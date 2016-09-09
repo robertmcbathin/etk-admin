@@ -144,4 +144,11 @@ class OrderController extends Controller
     	  	]);
     	return redirect()->back();
     }
+    public function ajaxCheckNewOrders()
+    {
+        $new_order_count = DB::table('orders')
+                            ->where('status', 1)
+                            ->count();
+        return response()->json(['new_order_count' => $new_order_count],200);
+    }
 }

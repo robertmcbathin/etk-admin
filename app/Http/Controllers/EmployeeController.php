@@ -26,13 +26,17 @@ class EmployeeController extends Controller
         $deactive_cards_count = DB::table('activated_cards')
                         ->where('is_active', 2)
                         ->count();
+        $new_order_count = DB::table('orders')
+                            ->where('status', 1)
+                            ->count();
 		$user = Auth::user();
 		return view('dashboard',
 			['user' => $user,
 			 'card_count' => $card_count,
 			 'awaiting_cards_count' => $awaiting_cards_count,
 			 'active_cards_count' => $active_cards_count,
-             'deactive_cards_count' => $deactive_cards_count
+             'deactive_cards_count' => $deactive_cards_count,
+             'new_order_count' => $new_order_count
              ]);
 	}
 	public function getUserList()
