@@ -10,7 +10,122 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+   public function getAddSection()
+    {
+      return view('menu.shop.add_section',[
+        'alert_title' => '',
+            'alert_text'  => '',
+            'alert_type'    => ''
+        ]);
+    }
+    public function postAddSection(Request $request)
+    {
+      /*VALIDATING INPUT*/
+      $this->validate($request,[
+        'section_name' => 'required'
+        ]);
+      /*INIT VARIABLES*/
+      $section_name  = $request['section_name'];
+      $section_description = $request['section_description'];
+      $section_image = $request['section_image'];
 
+      /*CHECK CARD CREDENTIALS*/
+      $section = DB::table('sections')->where('title',$section_name)
+                                  ->first();
+        if($section !== NULL)
+        {
+            return view('menu.shop.add_section',[
+              'alert_title' => 'Такой раздел уже существует!',
+              'alert_text'  => 'Запись не добавлена',
+              'alert_type'    => 'alert-error'
+            ]);
+        }
+        /*----------------------*/
+
+      if (DB::table('sections')->insert([
+        'title'            => $section_name,
+        'description'      => $section_description,
+        'image' => $section_image
+        ]))
+      {return view('menu.shop.add_section',[
+        'alert_title' => 'Запись добавлена',
+        'alert_text'  => 'Добавлена новый раздел',
+        'alert_type'    => 'alert-success'
+        ]);
+      }
+    }
+
+    public function getEditSection($section_id)
+    {
+      $section = DB::table('sections')
+              ->where('id', $section_id)
+              ->first();
+      return view('menu.shop.edit_section',[
+        'section' => $section,
+        'alert_title' => '',
+        'alert_type'    => ''
+        ]);
+    }
+    public function postEditSection(Request $request)
+    {
+      /*VALIDATING INPUT*/
+      $this->validate($request,[
+        'section_title' => 'required'
+        ]);
+      /*INIT VARIABLES*/
+      $section_name  = $request['section_name'];
+      $section_id  = $request['section_id'];
+      $section_description  = $request['section_description'];
+      $section_image  = $request['section_image'];
+
+      /*CHECK CARD CREDENTIALS*/
+      $section = DB::table('sections')->where('title',$section_name)
+                                  ->first();
+        if($section !== NULL)
+        {
+            return view('menu.shop.edit_section',[
+              'section'   => $section,
+              'alert_title' => 'Зачем сохранять то же название?!',
+              'alert_text'  => 'Название раздела не изменено',
+              'alert_type'    => 'alert-error'
+            ]);
+        }
+        /*----------------------*/
+
+      if (DB::table('sections')
+                   ->where('id',$section_id)
+                   ->update(['title' => $section_name
+        ]))
+      {
+        $section = DB::table('sections')
+                  ->where('id',$section_id)
+                  ->first();
+        return view('menu.shop.edit_section',[
+        'section'   => $section,
+        'alert_title' => 'Запись изменена',
+        'alert_text'  => 'Название раздела изменено',
+        'alert_type'    => 'alert-success'
+        ]);
+      }
+    }
+
+    public function showSections()
+    {
+      $sections = DB::table('sections')
+                          ->orderBy('id', 'asc')
+                          ->get();
+
+      return view('menu.shop.sections',[
+        'sections' => $sections
+        ]);
+    }
+    public function postDeleteSection($id)
+    {
+      DB::table('sections')->where('id',$id)->delete();
+      return redirect()->back();
+    }
+
+    /*categories*/
     public function getAddCategory()
     {
     	return view('menu.shop.add_category',[

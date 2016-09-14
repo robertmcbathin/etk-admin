@@ -53,6 +53,7 @@ $username = Auth::user()->username;
                   </li>
                   <li><a><i class="fa fa-shopping-basket"></i> 21market.ru <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                    <li><a href="{{ route('shop.sections') }}">Разделы</a></li>
                       <li><a href="{{ route('shop.categories') }}">Категории</a></li>
                       <li><a href="{{ route('shop.products') }}">Товары</a></li>
                       <li><a href="form_advanced.html">Закупки</a></li>

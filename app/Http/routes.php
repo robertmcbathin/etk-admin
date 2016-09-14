@@ -100,6 +100,43 @@ Route::group(['middleware' => ['auth']], function(){
 		]);
 
 	/*SHOP ROUTES*/
+	/*SECTIONS
+    ----------------	
+    ----------------
+    ----------------
+	*/
+	Route::get('/shop/sections', ['uses' => 
+		'ProductController@showSections',
+		'as' => 'shop.sections'
+		]);	
+	Route::get('/shop/sections/add', ['uses' => 
+		'ProductController@getAddSection',
+		'as' => 'shop.sections.add.get'
+		]);	
+	Route::post('/shop/sections/add', ['uses' => 
+		'ProductController@postAddSection',
+		'as' => 'shop.sections.add.post'
+		]);	
+	Route::get('/shop/sections/{id}/edit', ['uses' => 
+		'ProductController@getEditSection',
+		'as' => 'shop.sections.edit.get'
+		]);	
+	Route::post('/shop/sections/{id}/edit', ['uses' => 
+		'ProductController@postEditSection',
+		'as' => 'shop.sections.edit.post'
+		]);	
+	Route::get('/shop/sections/{id}/delete', ['uses' => 
+		'ProductController@postDeleteSection',
+		'as' => 'shop.sections.delete.post'
+		]);	
+	Route::get('/shop/sections/{id}/unlock', ['uses' => 
+		'ProductController@getUnlockSection',
+		'as' => 'club.sections.unlock.get'
+		]);	
+	Route::get('/shop/sections/{id}/lock', ['uses' => 
+		'ProductController@getLockSection',
+		'as' => 'club.sections.lock.get'
+		]);
 	/*CATEGORIES
     ----------------	
     ----------------
