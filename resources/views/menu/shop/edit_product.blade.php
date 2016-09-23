@@ -73,6 +73,23 @@
                           </select><span class="select2 select2-container select2-container--default select2-container--above" dir="ltr" style="width: 551px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-labelledby="select2-ba1p-container"><span class="select2-selection__rendered" id="select2-ba1p-container"><span class="select2-selection__placeholder">Выберите категорию</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
                         </div>
                       </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Теги</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input id="tags_1" type="text" class="tags form-control" value="social, adverts, sales" data-tagsinput-init="true" style="display: none;"><div id="tags_1_tagsinput" class="tagsinput" style="width: auto; min-height: 100px; height: 100px;">
+                          @if ($tags !== NULL)
+                            @foreach ($tags as $tag)
+                              <span class="tag">
+                                <span>{{ $tag->name }}&nbsp;&nbsp;</span>
+                                <a href="{{ route('shop.tags.remove.post',['tag_id' => $tag->id, 'product_id' => $product->id]) }}" title="Removing tag">x</a>
+                              </span>
+                            @endforeach
+                          @endif
+                          
+                        </div>
+                      </div>
+                    </div>
+                          
                       <hr>
                       <div class="form-group {{ $errors->has('price_by_supplier') ? 'has-error' : ''}}">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price_by_supplier">Цена (от поставщика) <span class="required">*</span>
@@ -180,5 +197,26 @@
             </div>
             <div class="row"></div>
                 <div class="clearfix"></div>
-            </div>
+
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/shop/product/{{$product->id}}/tags/add" method="POST">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Выберите теги</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true" name="tag_id">
+                            @if ($available_tags !== NULL)
+                                 @foreach ($available_tags as $available_tag)
+                                   <option value="{{$available_tag->id}}">{{ $available_tag->name }} </option>
+                                 @endforeach
+                               @endif
+                          </select><span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" style="width: 551px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-labelledby="select2-f8xs-container"><span class="select2-selection__rendered" id="select2-f8xs-container"><span class="select2-selection__placeholder">Выберите теги</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                        </div>
+                      </div>
+                      {{ csrf_field() }}
+                      <input type="hidden" value="{{$product->id}}" name="product_id">
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button type="submit" class="btn btn-success">Добавить тег</button>
+                        </div>
+                      </div>
+                    </form>
 @endsection

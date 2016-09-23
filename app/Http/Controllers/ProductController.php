@@ -420,6 +420,9 @@ class ProductController extends Controller
 
     public function getEditProduct($category_id, $subcategory_id, $id)
     { 
+      $available_tags = DB::table('product_tags')
+                      ->where('subcategory_id', $subcategory_id)
+                      ->get();
       $category = DB::table('categories')
               ->where('id', $category_id)
               ->first();
@@ -433,7 +436,9 @@ class ProductController extends Controller
       return view('menu.shop.edit_product',[
             'product'    => $product,
             'subcategories' => $subcategories,
-            'category' => $category
+            'category' => $category,
+            'tags' => $tags,
+            'available_tags' => $available_tags
         ]);
     }
 
@@ -641,6 +646,149 @@ class ProductController extends Controller
       DB::table('products')
                 ->where('id', $id)
                 ->update(['published' => 0]);
+      return redirect()->back();
+    }
+
+    /*---TAGS----*/
+    /*-----------*/
+    /*-----------*/
+    /*-----------*/
+    public function getAddTag()
+    {
+      $subcategories = DB::table('subcategories')
+              ->get();
+      return view('menu.shop.add_tag',[
+        'alert_title' => '',
+            'alert_text'  => '',
+            'alert_type'    => '',
+            'subcategories' => $subcategories
+        ]);
+    }
+    public function postAddTag(Request $request)
+    {
+      /*VALIDATING INPUT*/
+      $this->validate($request,[
+        'tag_name' => 'required',
+        'subcategory_id' => 'required'
+        ]);
+      /*INIT VARIABLES*/
+      $tag_name  = $request['tag_name'];
+      $subcategory_id = $request['subcategory_id'];
+      $subcategories = DB::table('subcategories')
+              ->get();
+      /*CHECK CARD CREDENTIALS*/
+      $tag = DB::table('product_tags')->where('name',$tag_name)
+                                  ->first();
+        if($tag !== NULL)
+        {
+            return view('menu.shop.add_tag',[
+              'alert_title' => 'Такой тег уже существует!',
+              'alert_text'  => 'Запись не добавлена',
+              'alert_type'    => 'alert-error'
+            ]);
+        }
+        /*----------------------*/
+
+      if (DB::table('product_tags')->insert([
+        'name'            => $tag_name,
+        'subcategory_id' => $subcategory_id
+        ]))
+      {return view('menu.shop.add_tag',[
+        'alert_title' => 'Запись добавлена',
+        'alert_text'  => 'Добавлен новый тег',
+        'alert_type'    => 'alert-success',
+        'subcategories' => $subcategories
+        ]);
+      }
+    }
+
+    public function getEditTag($tag_id)
+    {
+      $Tag = DB::table('product_tags')
+              ->where('id', $tag_id)
+              ->first();
+      return view('menu.shop.edit_tag',[
+        'Tag' => $Tag,
+        'alert_title' => '',
+        'alert_type'    => ''
+        ]);
+    }
+    public function postEditTag(Request $request)
+    {
+      /*VALIDATING INPUT*/
+      $this->validate($request,[
+        'tag_name' => 'required'
+        ]);
+      /*INIT VARIABLES*/
+      $tag_name  = $request['tag_name'];
+      $tag_id  = $request['tag_id'];
+
+      /*CHECK TAG*/
+      $tag = DB::table('product_tags')->where('name',$tag_name)
+                                  ->first();
+        if($tag !== NULL)
+        {
+            return view('menu.shop.edit_tag',[
+              'tag'   => $tag,
+              'alert_title' => 'Зачем сохранять то же название?!',
+              'alert_text'  => 'Название тега не изменено',
+              'alert_type'    => 'alert-error'
+            ]);
+        }
+        /*----------------------*/
+
+      if (DB::table('product_tags')
+                   ->where('id',$tag_id)
+                   ->update(['name' => $tag_name
+        ]))
+      {
+        $tag = DB::table('product_tags')
+                  ->where('id',$tag_id)
+                  ->first();
+        return view('menu.shop.edit_tag',[
+        'tag'   => $tag,
+        'alert_title' => 'Запись изменена',
+        'alert_text'  => 'Название тега изменено',
+        'alert_type'    => 'alert-success'
+        ]);
+      }
+    }
+
+    public function showTags()
+    {
+      $tags = DB::table('product_tags')
+                ->join('subcategories', 'product_tags.subcategory_id', '=', 'subcategories.id')
+                ->select('product_tags.id', 
+                         'product_tags.name', 
+                         'subcategories.name as subcategory_name')
+                ->get();
+
+      return view('menu.shop.tags',[
+        'tags' => $tags
+        ]);
+    }
+    public function postDeleteTag($id)
+    {
+      DB::table('product_tags')->where('id',$id)->delete();
+      return redirect()->back();
+    }
+    public function postRemoveTag($tag_id, $product_id)
+    {
+      DB::table('product-tag')
+        ->where('tag_id',$tag_id)
+        ->where('product_id', $product_id)
+        ->delete();
+      return redirect()->back();
+    }
+    public function postAddTagToProduct(Request $request)
+    {
+      $tag_id = $request['tag_id'];
+      $product_id = $request['product_id'];
+
+
+      DB::table('product-tag')
+               ->insert(['product_id' => $product_id, 
+                          'tag_id' => $tag_id]);
       return redirect()->back();
     }
 }

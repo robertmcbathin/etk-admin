@@ -211,6 +211,44 @@ Route::group(['middleware' => ['auth']], function(){
     ----------------
     ----------------
 	*/
+/*TAGS
+    ----------------	
+    ----------------
+    ----------------
+	*/
+	Route::get('/shop/tags', ['uses' => 
+		'ProductController@showTags',
+		'as' => 'shop.tags'
+		]);	
+	Route::get('/shop/tags/add', ['uses' => 
+		'ProductController@getAddTag',
+		'as' => 'shop.tags.add.get'
+		]);	
+	Route::post('/shop/tags/add', ['uses' => 
+		'ProductController@postAddTag',
+		'as' => 'shop.tags.add.post'
+		]);	
+	Route::get('/shop/tags/{id}/edit', ['uses' => 
+		'ProductController@getEditTag',
+		'as' => 'shop.tags.edit.get'
+		]);	
+	Route::post('/shop/tags/{id}/edit', ['uses' => 
+		'ProductController@postEditTag',
+		'as' => 'shop.tags.edit.post'
+		]);	
+	Route::get('/shop/tags/{id}/delete', ['uses' => 
+		'ProductController@postDeleteTag',
+		'as' => 'shop.tags.delete.post'
+		]);	
+	Route::get('/shop/tags/{tag_id}/{product_id}/remove', ['uses' => 
+		'ProductController@postRemoveTag',
+		'as' => 'shop.tags.remove.post'
+		]);	
+
+	Route::post('/shop/product/{product_id}/tags/add', ['uses' => 
+		'ProductController@postAddTagToProduct',
+		'as' => 'shop.produc.tags.add.post'
+		]);	
     /*BANNERS
     ----------------	
     ----------------
