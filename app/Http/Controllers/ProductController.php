@@ -420,6 +420,16 @@ class ProductController extends Controller
 
     public function getEditProduct($category_id, $subcategory_id, $id)
     { 
+      $attributes = DB::table('product_attributes')
+                      ->where('product_id', $id)
+                      ->get();
+
+      $tags = DB::table('product-tag')
+            ->join('product_tags', 'product-tag.tag_id', '=', 'product_tags.id')
+            ->select('product-tag.tag_id as id',
+                      'product_tags.name as name')
+            ->where('product-tag.product_id', $id)
+            ->get();
       $available_tags = DB::table('product_tags')
                       ->where('subcategory_id', $subcategory_id)
                       ->get();
@@ -438,7 +448,8 @@ class ProductController extends Controller
             'subcategories' => $subcategories,
             'category' => $category,
             'tags' => $tags,
-            'available_tags' => $available_tags
+            'available_tags' => $available_tags,
+            'attributes' => $attributes
         ]);
     }
 
@@ -789,6 +800,26 @@ class ProductController extends Controller
       DB::table('product-tag')
                ->insert(['product_id' => $product_id, 
                           'tag_id' => $tag_id]);
+      return redirect()->back();
+    }
+    public function postAddAttributeToProduct(Request $request)
+    {
+      $attribute_name = $request['attribute_name'];
+      $attribute_value = $request['attribute_value'];
+      $product_id = $request['product_id'];
+
+
+      DB::table('product_attributes')
+               ->insert(['product_id' => $product_id, 
+                          'name' => $attribute_name,
+                          'value' => $attribute_value]);
+      return redirect()->back();
+    }
+    public function postRemoveAttribute($attribute_id)
+    {
+      DB::table('product_attributes')
+        ->where('id',$attribute_id)
+        ->delete();
       return redirect()->back();
     }
 }

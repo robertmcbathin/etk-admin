@@ -89,6 +89,28 @@
                         </div>
                       </div>
                     </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Дополнительные параметры</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                          @if ($attributes !== NULL)
+                          <table class="table">
+                          <th>#</th>
+                          <th>Наименование</th>
+                          <th>Значение</th>
+                          <th>Удалить</th>
+                            @foreach ($attributes as $attribute)
+                              <tr>
+                                <td>{{ $attribute->id }}</td>
+                                <td>{{ $attribute->name }}</td>
+                                <td>{{ $attribute->value }}</td>
+                                <td><a href="{{ route('shop.attributes.remove.post',['attribute_id' => $attribute->id]) }}" title="Removing tag">x</a></td>
+                              </tr>
+                            @endforeach
+                          </table>
+                          @endif
+                      </div>
+                    </div>
                           
                       <hr>
                       <div class="form-group {{ $errors->has('price_by_supplier') ? 'has-error' : ''}}">
@@ -216,6 +238,23 @@
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           <button type="submit" class="btn btn-success">Добавить тег</button>
+                        </div>
+                      </div>
+                    </form>
+
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/shop/product/{{$product->id}}/attributes/add" method="POST">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Добавление атрибута</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="text" id="attribute_name" name="attribute_name" class="form-control col-md-7 col-xs-12" size="50" maxlength="100" placeholder="Наименование" value="">
+                            <input type="text" id="attribute_value" name="attribute_value" class="form-control col-md-7 col-xs-12" size="50" maxlength="255" placeholder="Значение" value="">
+                        </div>
+                      </div>
+                      {{ csrf_field() }}
+                      <input type="hidden" value="{{$product->id}}" name="product_id">
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button type="submit" class="btn btn-success">Добавить атрибут</button>
                         </div>
                       </div>
                     </form>

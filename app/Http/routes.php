@@ -247,7 +247,41 @@ Route::group(['middleware' => ['auth']], function(){
 
 	Route::post('/shop/product/{product_id}/tags/add', ['uses' => 
 		'ProductController@postAddTagToProduct',
-		'as' => 'shop.produc.tags.add.post'
+		'as' => 'shop.product.tags.add.post'
+		]);	
+	/*ATTRIBUTES
+    ----------------	
+    ----------------
+    ----------------
+	*/	
+	Route::get('/shop/attributes/add', ['uses' => 
+		'ProductController@getAddattribute',
+		'as' => 'shop.attributes.add.get'
+		]);	
+	Route::post('/shop/attributes/add', ['uses' => 
+		'ProductController@postAddattribute',
+		'as' => 'shop.attributes.add.post'
+		]);	
+	Route::get('/shop/attributes/{id}/edit', ['uses' => 
+		'ProductController@getEditattribute',
+		'as' => 'shop.attributes.edit.get'
+		]);	
+	Route::post('/shop/attributes/{id}/edit', ['uses' => 
+		'ProductController@postEditattribute',
+		'as' => 'shop.attributes.edit.post'
+		]);	
+	Route::get('/shop/attributes/{id}/delete', ['uses' => 
+		'ProductController@postDeleteattribute',
+		'as' => 'shop.attributes.delete.post'
+		]);	
+	Route::get('/shop/attributes/{attribute_id}/remove', ['uses' => 
+		'ProductController@postRemoveAttribute',
+		'as' => 'shop.attributes.remove.post'
+		]);	
+
+	Route::post('/shop/product/{product_id}/attributes/add', ['uses' => 
+		'ProductController@postAddAttributeToProduct',
+		'as' => 'shop.product.attributes.add.post'
 		]);	
     /*BANNERS
     ----------------	

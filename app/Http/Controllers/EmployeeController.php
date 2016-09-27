@@ -29,6 +29,9 @@ class EmployeeController extends Controller
         $new_order_count = DB::table('orders')
                             ->where('status', 1)
                             ->count();
+        $new_callbacks_count = DB::table('callbacks')
+                            ->where('closed_by', null)
+                            ->count();
 		$user = Auth::user();
 		return view('dashboard',
 			['user' => $user,
@@ -36,7 +39,8 @@ class EmployeeController extends Controller
 			 'awaiting_cards_count' => $awaiting_cards_count,
 			 'active_cards_count' => $active_cards_count,
              'deactive_cards_count' => $deactive_cards_count,
-             'new_order_count' => $new_order_count
+             'new_order_count' => $new_order_count,
+             'new_callbacks_count' => $new_callbacks_count
              ]);
 	}
 	public function getUserList()
