@@ -56,6 +56,7 @@ $username = Auth::user()->username;
                     <li><a href="{{ route('shop.sections') }}">Разделы</a></li>
                       <li><a href="{{ route('shop.categories') }}">Категории</a></li>
                       <li><a href="{{ route('shop.tags') }}">Теги</a></li>
+                      <li><a href="{{ route('shop.attributes') }}">Характеристики</a></li>
                       <li><a href="{{ route('shop.products') }}">Товары</a></li>
                       <li><a href="form_advanced.html">Закупки</a></li>
                       <li><a href="form_validation.html">Заказы</a></li>

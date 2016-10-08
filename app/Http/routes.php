@@ -254,6 +254,10 @@ Route::group(['middleware' => ['auth']], function(){
     ----------------
     ----------------
 	*/	
+	Route::get('/shop/attributes', ['uses' => 
+		'ProductController@showAttributes',
+		'as' => 'shop.attributes'
+		]);
 	Route::get('/shop/attributes/add', ['uses' => 
 		'ProductController@getAddattribute',
 		'as' => 'shop.attributes.add.get'

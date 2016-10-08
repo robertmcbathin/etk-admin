@@ -715,13 +715,16 @@ class ProductController extends Controller
 
     public function getEditTag($tag_id)
     {
-      $Tag = DB::table('product_tags')
+      $tag = DB::table('product_tags')
               ->where('id', $tag_id)
               ->first();
+      $subcategories = DB::table('subcategories')
+              ->get();
       return view('menu.shop.edit_tag',[
-        'Tag' => $Tag,
+        'tag' => $tag,
         'alert_title' => '',
-        'alert_type'    => ''
+        'alert_type'    => '',
+        'subcategories' => $subcategories
         ]);
     }
     public function postEditTag(Request $request)
@@ -733,6 +736,7 @@ class ProductController extends Controller
       /*INIT VARIABLES*/
       $tag_name  = $request['tag_name'];
       $tag_id  = $request['tag_id'];
+      $subcategory_id = $request['subcategory_name'];
 
       /*CHECK TAG*/
       $tag = DB::table('product_tags')->where('name',$tag_name)
@@ -743,14 +747,15 @@ class ProductController extends Controller
               'tag'   => $tag,
               'alert_title' => 'Зачем сохранять то же название?!',
               'alert_text'  => 'Название тега не изменено',
-              'alert_type'    => 'alert-error'
-            ]);
+              'alert_type'    => 'alert-error',
+              'subcategories' => ''
+                          ]);
         }
         /*----------------------*/
 
       if (DB::table('product_tags')
                    ->where('id',$tag_id)
-                   ->update(['name' => $tag_name
+                   ->update(['name' => $tag_name, 'subcategory_id' => $subcategory_id
         ]))
       {
         $tag = DB::table('product_tags')
@@ -760,7 +765,8 @@ class ProductController extends Controller
         'tag'   => $tag,
         'alert_title' => 'Запись изменена',
         'alert_text'  => 'Название тега изменено',
-        'alert_type'    => 'alert-success'
+        'alert_type'    => 'alert-success',
+        'subcategories' => ''
         ]);
       }
     }
@@ -821,5 +827,106 @@ class ProductController extends Controller
         ->where('id',$attribute_id)
         ->delete();
       return redirect()->back();
+    }
+    public function showAttributes()
+    {
+      $attributes = DB::table('product_attributes_types')
+                ->get();
+
+      return view('menu.shop.attributes',[
+        'attributes' => $attributes
+        ]);
+    }
+    public function getAddAttribute()
+    {
+      return view('menu.shop.add_attribute',[
+        'alert_title' => '',
+            'alert_text'  => '',
+            'alert_type'    => ''
+        ]);
+    }
+    public function postAddAttribute(Request $request)
+    {
+      /*VALIDATING INPUT*/
+      $this->validate($request,[
+        'attribute_name' => 'required'
+        ]);
+      /*INIT VARIABLES*/
+      $attribute_name  = $request['attribute_name'];
+
+      $attribute = DB::table('product_attributes_types')->where('name',$attribute_name)
+                                  ->first();
+        if($attribute !== NULL)
+        {
+            return view('menu.shop.add_attribute',[
+              'alert_title' => 'Такая характеристика уже существует!',
+              'alert_text'  => 'Запись не добавлена',
+              'alert_type'    => 'alert-error'
+            ]);
+        }
+        /*----------------------*/
+
+      if (DB::table('product_attributes_types')->insert([
+        'name'            => $attribute_name
+        ]))
+      {return view('menu.shop.add_attribute',[
+        'alert_title' => 'Запись добавлена',
+        'alert_text'  => 'Добавлена новая характеристика',
+        'alert_type'    => 'alert-success'
+        ]);
+      }
+    }
+
+        public function getEditAttribute($attribute_id)
+    {
+      $attribute = DB::table('product_attributes_types')
+              ->where('id', $attribute_id)
+              ->first();
+      return view('menu.shop.edit_attribute',[
+        'attribute' => $attribute,
+        'alert_title' => '',
+        'alert_type'    => ''
+        ]);
+    }
+    public function postEditAttribute(Request $request)
+    {
+      /*VALIDATING INPUT*/
+      $this->validate($request,[
+        'attribute_name' => 'required'
+        ]);
+      /*INIT VARIABLES*/
+      $attribute_name  = $request['attribute_name'];
+      $attribute_id  = $request['attribute_id'];
+
+      /*CHECK TAG*/
+      $attribute = DB::table('product_attributes_types')->where('name',$attrinute_name)
+                                  ->first();
+        if($attribute !== NULL)
+        {
+            return view('menu.shop.edit_attribute',[
+              'attribute'   => $attribute,
+              'alert_title' => 'Зачем сохранять то же название?!',
+              'alert_text'  => 'Название характеристики не изменено',
+              'alert_type'    => 'alert-error'
+            ]);
+        }
+        /*----------------------*/
+
+      if (DB::table('product_attributes_types')
+                   ->where('id',$attribute_id)
+                   ->update(['name' => $attribute_name
+        ]))
+      {
+        $attribute = DB::table('product_attributes_types')
+                  ->where('id',$attribute_id)
+                  ->first();
+        return view('menu.shop.edit_attribute',[
+        'attribute'   => $attribute,
+        'alert_title' => 'Запись изменена',
+        'alert_text'  => 'Название характеристики изменено',
+
+        'alert_type'    => 'alert-success'
+        ]);
+      }
     }
 }
