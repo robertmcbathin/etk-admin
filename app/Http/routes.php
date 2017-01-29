@@ -19,7 +19,10 @@ Route::group(['middleware' => ['web']], function(){
     Route::get('/login',  'EmployeeController@getLogIn');
     Route::post('/login', 'EmployeeController@postLogIn');
     Route::get('/logout', 'EmployeeController@getLogOut');
-
+  
+  Route::get('/test_oci', function(){
+  	dd(DB::connection('oracle')->getPdo());
+  });	
 });
 Route::get('/date', [
 	'uses' => 'CardController@checkDate'
@@ -211,6 +214,7 @@ Route::group(['middleware' => ['auth']], function(){
     ----------------
     ----------------
 	*/
+
 /*TAGS
     ----------------	
     ----------------

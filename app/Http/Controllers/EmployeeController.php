@@ -15,6 +15,14 @@ class EmployeeController extends Controller
 
 	public function getDashboard()
 	{
+
+        /*
+         * Retrieving from COTT
+        */
+ /*        $cott_card_count = DB::connection('oracle')->select('select COUNT(ID) from cott.card');
+       /* 
+         * 
+       */
 		$card_count = DB::table('cards')
 		                ->count();
 		$awaiting_cards_count = DB::table('cards')
