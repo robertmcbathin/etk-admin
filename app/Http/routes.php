@@ -64,6 +64,49 @@ Route::group(['middleware' => ['auth']], function(){
 		'CardController@showActivatedCards',
 		'as' => 'club.cards.activated'
 		]);
+	/* ETK21 ROUTES 
+	----------------	
+    ----------------
+    ----------------
+	*/
+	Route::get('/etk/cards', ['uses' => 
+		'SiteController@showCardDashboard',
+		'as' => 'etk.cards'
+		]);
+	Route::get('/etk/cards/add', ['uses' => 
+		'SiteController@getCardAdd',
+		'as' => 'etk.cards.add.get'
+		]);
+	Route::post('/etk/cards/add', ['uses' => 
+		'SiteController@postCardAdd',
+		'as' => 'etk.cards.add.post'
+		]);
+
+	Route::get('/etk/articles', ['uses' => 
+		'SiteController@getArticleDashboard',
+		'as' => 'etk.articles'
+		]);
+	Route::get('/etk/articles/add', ['uses' => 
+		'SiteController@getArticleAdd',
+		'as' => 'etk.articles.add.get'
+		]);
+	Route::post('/etk/articles/add', ['uses' => 
+		'SiteController@postArticleAdd',
+		'as' => 'etk.articles.add.post'
+		]);
+
+	Route::get('/etk/questions', ['uses' => 
+		'SiteController@getQuestionDashboard',
+		'as' => 'etk.questions'
+		]);
+	Route::get('/etk/questions/add', ['uses' => 
+		'SiteController@getQuestionAdd',
+		'as' => 'etk.questions.add.get'
+		]);
+	Route::post('/etk/questions/add', ['uses' => 
+		'SiteController@postQuestionAdd',
+		'as' => 'etk.questions.add.post'
+		]);
 	/*CARDHOLDERS
 	----------------	
     ----------------

@@ -81,8 +81,9 @@ $username = Auth::user()->username;
                   </li>
                   <li><a><i class="fa fa-credit-card-alt"></i> etk21.ru <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="general_elements.html">Какой-то пункт</a></li>
-                      <li><a href="media_gallery.html">Новости</a></li>
+                      <li><a href="{{ route('etk.cards') }}">Карты</a></li>
+                      <li><a href="{{ route('etk.articles') }}">Новости</a></li>
+                      <li><a href="{{ route('etk.questions') }}">Вопросы</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-wrench"></i> Настройки <span class="fa fa-chevron-down"></span></a>
